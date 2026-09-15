@@ -48,7 +48,17 @@ INSTALLED_APPS = [
     'finance',
     'hr',
     'maintenance',]
+AUTH_USER_MODEL = "users.Utilisateur"
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
+
+SIMPLE_JWT = {
+    "USER_ID_FIELD": "id_utilisateur",
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
