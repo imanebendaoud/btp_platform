@@ -25,4 +25,9 @@ urlpatterns = [
         "api/auth/",
         include("users.urls"),
     ),
+
+    path(
+        "api/finance/",
+        include("finance.urls"),
+    ),
 ]
