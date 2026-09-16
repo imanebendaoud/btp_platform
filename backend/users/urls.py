@@ -5,6 +5,8 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from .views import MeView, AdminTestView
+
 
 urlpatterns = [
     path(
@@ -17,5 +19,17 @@ urlpatterns = [
         "refresh/",
         TokenRefreshView.as_view(),
         name="token_refresh",
+    ),
+
+    path(
+        "me/",
+        MeView.as_view(),
+        name="me",
+    ),
+
+    path(
+        "admin-test/",
+        AdminTestView.as_view(),
+        name="admin_test",
     ),
 ]
