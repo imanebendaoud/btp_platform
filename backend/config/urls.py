@@ -30,4 +30,14 @@ urlpatterns = [
         "api/finance/",
         include("finance.urls"),
     ),
+
+    path(
+        "api/hr/",
+        include("hr.urls"),
+    ),
+
+    path(
+        "api/maintenance/",
+        include("maintenance.urls"),
+    ),
 ]
