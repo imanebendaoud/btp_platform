@@ -40,4 +40,14 @@ urlpatterns = [
         "api/maintenance/",
         include("maintenance.urls"),
     ),
+
+    path(
+        "api/projects/",
+        include("projects.urls"),
+    ),
+
+    path(
+        "api/stock/",
+        include("stock.urls"),
+    ),
 ]
