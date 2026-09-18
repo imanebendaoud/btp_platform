@@ -1,5 +1,10 @@
+
 from rest_framework.permissions import BasePermission
 
+
+# ============================================================
+# Permission de base : vérifier le rôle de l'utilisateur
+# ============================================================
 
 class IsRole(BasePermission):
     required_role = None
@@ -13,6 +18,10 @@ class IsRole(BasePermission):
 
         return request.user.id_role.nom_role == self.required_role
 
+
+# ============================================================
+# Permissions pour un seul rôle
+# ============================================================
 
 class IsAdministrateur(IsRole):
     required_role = "ADMINISTRATEUR"
@@ -33,6 +42,10 @@ class IsResponsableMaintenance(IsRole):
 class IsResponsableRH(IsRole):
     required_role = "RESPONSABLE_RH"
 
+
+# ============================================================
+# Permissions pour plusieurs rôles
+# ============================================================
 
 class IsAdminOrFinance(BasePermission):
 
@@ -77,3 +90,70 @@ class IsAdminOrRH(BasePermission):
             "ADMINISTRATEUR",
             "RESPONSABLE_RH",
         ]
+
+
+class IsAdminOrChefOrFinance(BasePermission):
+
+    def has_permission(self, request, view):
+        if not request.user.is_authenticated:
+            return False
+
+        if not request.user.actif:
+            return False
+
+        return request.user.id_role.nom_role in [
+            "ADMINISTRATEUR",
+            "CHEF_CHANTIER",
+            "RESPONSABLE_FINANCIER",
+        ]
+
+
+class IsAdminOrChefOrFinanceOrMaintenance(BasePermission):
+
+    def has_permission(self, request, view):
+        if not request.user.is_authenticated:
+            return False
+
+        if not request.user.actif:
+            return False
+
+        return request.user.id_role.nom_role in [
+            "ADMINISTRATEUR",
+            "CHEF_CHANTIER",
+            "RESPONSABLE_FINANCIER",
+            "RESPONSABLE_MAINTENANCE",
+        ]
+
+
+class IsAdminOrChefOrFinanceOrMaintenanceOrRH(BasePermission):
+
+    def has_permission(self, request, view):
+        if not request.user.is_authenticated:
+            return False
+
+        if not request.user.actif:
+            return False
+
+        return request.user.id_role.nom_role in [
+            "ADMINISTRATEUR",
+            "CHEF_CHANTIER",
+            "RESPONSABLE_FINANCIER",
+            "RESPONSABLE_MAINTENANCE",
+            "RESPONSABLE_RH",
+        ]
+
+
+# ============================================================
+# Permission : tout utilisateur authentifié et actif
+# ============================================================
+
+class IsAuthenticatedAndActive(BasePermission):
+
+    def has_permission(self, request, view):
+        if not request.user.is_authenticated:
+            return False
+
+        if not request.user.actif:
+            return False
+
+        return True
