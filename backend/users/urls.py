@@ -1,11 +1,26 @@
-from django.urls import path
+from django.urls import path, include
+
+from rest_framework.routers import DefaultRouter
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
 
-from .views import MeView, AdminTestView
+from .views import (
+    MeView,
+    AdminTestView,
+    UtilisateurViewSet,
+)
+
+
+router = DefaultRouter()
+
+router.register(
+    r"utilisateurs",
+    UtilisateurViewSet,
+    basename="utilisateur"
+)
 
 
 urlpatterns = [
@@ -31,5 +46,10 @@ urlpatterns = [
         "admin-test/",
         AdminTestView.as_view(),
         name="admin_test",
+    ),
+
+    path(
+        "",
+        include(router.urls),
     ),
 ]
