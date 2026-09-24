@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from users.dashboard_views import DashboardSummaryView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -50,4 +50,8 @@ urlpatterns = [
         "api/stock/",
         include("stock.urls"),
     ),
+    path(
+    "api/dashboard/summary/",
+    DashboardSummaryView.as_view(),
+    name="dashboard-summary",),
 ]

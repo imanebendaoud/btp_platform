@@ -1,23 +1,24 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Login from "../pages/Login";
 
-function Dashboard() {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Connexion réussie.</p>
-    </div>
-  );
-}
+import Login from "../pages/Login";
+import Dashboard from "../pages/Dashboard";
 
 function AppRoutes() {
   return (
     <Routes>
+
+      {/* Page de connexion */}
       <Route path="/login" element={<Login />} />
 
+      {/* Dashboard */}
       <Route path="/dashboard" element={<Dashboard />} />
 
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      {/* Toutes les autres URLs */}
+      <Route
+        path="*"
+        element={<Navigate to="/login" replace />}
+      />
+
     </Routes>
   );
 }
