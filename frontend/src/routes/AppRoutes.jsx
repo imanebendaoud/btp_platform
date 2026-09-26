@@ -13,6 +13,9 @@ function AppRoutes() {
       {/* Dashboard */}
       <Route path="/dashboard" element={<Dashboard />} />
 
+      {/* Dashboard Chef de chantier */}
+      <Route path="/chef-dashboard" element={<ChefDashboard />} />
+
       {/* Toutes les autres URLs */}
       <Route
         path="*"

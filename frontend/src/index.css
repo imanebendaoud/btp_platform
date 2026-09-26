@@ -1,448 +1,111 @@
-/* =========================================
-   RESET
-   ========================================= */
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-* {
-  box-sizing: border-box;
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
 }
 
-html,
-body,
-#root {
-  min-height: 100%;
-  margin: 0;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
 }
 
 body {
-  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
-    "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
 }
 
-
-/* =========================================
-   PAGE LOGIN
-   ========================================= */
-
-.login-page {
-  min-height: 100vh;
-
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  padding: 42px 24px 24px;
-
-  background-color: #1c2420;
-
-  background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px
-    );
-
-  background-size: 40px 40px;
+  box-sizing: border-box;
 }
 
-
-/* =========================================
-   LOGO / BRANDING
-   ========================================= */
-
-.login-header {
-  width: 100%;
-  max-width: 400px;
-
-  display: flex;
-  justify-content: center;
-
-  margin-bottom: 42px;
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
 }
 
-.login-logo {
-  display: flex;
-  align-items: center;
-  gap: 13px;
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
 }
-
-
-/* Carré avec B */
-
-.login-logo-mark {
-  width: 48px;
-  height: 48px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #e08a2c;
-  color: #1c2420;
-
-  border-radius: 5px;
-
-  font-size: 23px;
-  font-weight: 800;
-
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.18);
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
 }
-
-
-/* Texte Boussaksou */
-
-.login-logo-name {
+p {
   margin: 0;
-
-  color: #f4f2ec;
-
-  font-size: 20px;
-  font-weight: 700;
-
-  letter-spacing: -0.02em;
 }
 
-
-/* Texte Construction */
-
-.login-logo-role {
-  margin: 3px 0 0;
-
-  color: #aaa99f;
-
-  font-size: 13px;
-  font-weight: 400;
-}
-
-
-/* =========================================
-   CONTENU
-   ========================================= */
-
-.login-content {
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-}
-
-
-/* =========================================
-   CARTE DE CONNEXION
-   ========================================= */
-
-.login-card {
-  width: 100%;
-  max-width: 400px;
-
-  padding: 38px 36px 36px;
-
-  background: #f4f2ec;
-
-  border-radius: 5px;
-
-  border-top: 4px solid #e08a2c;
-
-  box-shadow:
-    0 25px 65px rgba(0, 0, 0, 0.32);
-}
-
-
-/* =========================================
-   EN-TÊTE DU FORMULAIRE
-   ========================================= */
-
-.login-card-header {
-  margin-bottom: 29px;
-}
-
-.login-eyebrow {
-  margin: 0 0 10px;
-
-  color: #e08a2c;
-
-  font-size: 11.5px;
-  font-weight: 700;
-
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-}
-
-
-.login-card h1 {
-  margin: 0 0 7px;
-
-  color: #1c2420;
-
-  font-size: 26px;
-  font-weight: 700;
-
-  line-height: 1.2;
-  letter-spacing: -0.025em;
-}
-
-
-.login-subtitle {
-  margin: 0;
-
-  color: #6b6a63;
-
-  font-size: 14px;
-  line-height: 1.55;
-}
-
-
-/* =========================================
-   CHAMPS DU FORMULAIRE
-   ========================================= */
-
-.form-group {
-  margin-bottom: 19px;
-}
-
-
-.form-group label {
-  display: block;
-
-  margin-bottom: 7px;
-
-  color: #3a392f;
-
-  font-size: 13px;
-  font-weight: 600;
-}
-
-
-/* Inputs */
-
-.form-group input {
-  width: 100%;
-
-  padding: 12px 13px;
-
-  border: 1.5px solid #d8d5c9;
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
   border-radius: 4px;
-
-  background: #ffffff;
-
-  color: #1c2420;
-
-  font-family: inherit;
-  font-size: 14.5px;
-
-  outline: none;
-
-  transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+  color: var(--text-h);
 }
 
-
-.form-group input:hover {
-  border-color: #bdb9ab;
-}
-
-
-.form-group input:focus {
-  border-color: #e08a2c;
-
-  box-shadow:
-    0 0 0 3px rgba(224, 138, 44, 0.15);
-}
-
-
-.form-group input::placeholder {
-  color: #b3b1a4;
-}
-
-
-/* =========================================
-   MOT DE PASSE
-   ========================================= */
-
-.password-field {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-}
-
-
-.password-field input {
-  padding-right: 82px;
-}
-
-
-.password-toggle {
-  position: absolute;
-
-  right: 7px;
-
-  padding: 6px 8px;
-
-  border: none;
-  background: transparent;
-
-  color: #6b6a63;
-
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
-
-  cursor: pointer;
-}
-
-
-.password-toggle:hover {
-  color: #1c2420;
-}
-
-
-.password-toggle:focus-visible {
-  outline: 2px solid #e08a2c;
-  outline-offset: 2px;
-
-  border-radius: 3px;
-}
-
-
-/* =========================================
-   ERREUR
-   ========================================= */
-
-.login-error {
-  margin: -3px 0 18px;
-  padding: 10px 12px;
-
-  border-left: 3px solid #b8452f;
-  border-radius: 3px;
-
-  background: rgba(184, 69, 47, 0.08);
-
-  color: #a63e2c;
-
-  font-size: 13px;
-  line-height: 1.45;
-}
-
-
-/* =========================================
-   BOUTON CONNEXION
-   ========================================= */
-
-.login-submit {
-  width: 100%;
-
-  padding: 12.5px 14px;
-
-  border: none;
-  border-radius: 4px;
-
-  background: #1c2420;
-  color: #f4f2ec;
-
-  font-family: inherit;
-  font-size: 14.5px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    background-color 0.15s ease,
-    transform 0.1s ease;
-}
-
-
-.login-submit:hover:not(:disabled) {
-  background: #2c352f;
-}
-
-
-.login-submit:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-
-.login-submit:disabled {
-  opacity: 0.6;
-
-  cursor: not-allowed;
-}
-
-
-.login-submit:focus-visible {
-  outline: 2px solid #e08a2c;
-  outline-offset: 3px;
-}
-
-
-/* =========================================
-   FOOTER
-   ========================================= */
-
-.login-footer {
-  width: 100%;
-  max-width: 400px;
-
-  margin-top: 32px;
-
-  text-align: center;
-}
-
-
-.login-footer p {
-  margin: 0;
-
-  color: #77786f;
-
-  font-size: 11.5px;
-}
-
-
-/* =========================================
-   RESPONSIVE
-   ========================================= */
-
-@media (max-width: 480px) {
-  .login-page {
-    padding: 30px 18px 20px;
-  }
-
-  .login-header {
-    margin-bottom: 32px;
-  }
-
-  .login-logo-mark {
-    width: 44px;
-    height: 44px;
-
-    font-size: 21px;
-  }
-
-  .login-logo-name {
-    font-size: 18px;
-  }
-
-  .login-card {
-    padding: 32px 24px 28px;
-  }
-}
-
-
-@media (max-height: 700px) {
-  .login-page {
-    padding-top: 25px;
-  }
-
-  .login-header {
-    margin-bottom: 25px;
-  }
-
-  .login-footer {
-    margin-top: 22px;
-  }
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
 }
