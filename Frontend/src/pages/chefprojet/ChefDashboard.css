@@ -1,365 +1,11 @@
 /* =========================================================
-   CHEF DASHBOARD
+   CHEF DASHBOARD CONTENT
+   Toutes les classes préfixées "chef-" pour éviter
+   tout conflit avec les CSS des autres rôles (admin, etc.)
    ========================================================= */
 
-* {
-  box-sizing: border-box;
-}
-
-.chef-dashboard {
-  min-height: 100vh;
-  background: #f4f2ec;
-  color: #1c2420;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  display: flex;
-}
-
-
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
-
-.sidebar {
-  width: 255px;
-  min-height: 100vh;
-  background: #1c2420;
-  color: #f4f2ec;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-}
-
-
-/* ---------- Logo ---------- */
-
-.sidebar-logo {
-  height: 76px;
-  padding: 0 22px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid rgba(244, 242, 236, 0.1);
-}
-
-.logo-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 6px;
-  background: #e08a2c;
-  color: #1c2420;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.15;
-}
-
-.logo-text span {
-  color: #f4f2ec;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-}
-
-.logo-text small {
-  color: #aaa99f;
-  font-size: 10px;
-  margin-top: 4px;
-}
-
-
-/* =========================================================
-   MENU
-   ========================================================= */
-
-.sidebar-menu {
-  padding: 25px 14px;
-  flex: 1;
-  overflow-y: auto;
-}
-
-.menu-title {
-  color: #77786f;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 0 10px 10px;
-}
-
-.menu-item {
+.chef-dashboard-content {
   width: 100%;
-  min-height: 43px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 13px;
-  margin-bottom: 5px;
-  border-radius: 6px;
-  border: none;
-  background: transparent;
-  color: #aaa99f;
-  font-family: inherit;
-  font-size: 13px;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s ease;
-}
-
-.menu-item:hover {
-  background: #2c352f;
-  color: #f4f2ec;
-}
-
-.menu-item.active {
-  background: #e08a2c;
-  color: #1c2420;
-  box-shadow: inset 3px 0 0 #f4f2ec;
-}
-
-.menu-icon {
-  width: 18px;
-  font-size: 15px;
-  color: #aaa99f;
-  display: flex;
-  justify-content: center;
-}
-
-.menu-item.active .menu-icon {
-  color: #1c2420;
-}
-
-.menu-item:hover .menu-icon {
-  color: #f4f2ec;
-}
-
-.menu-item.active:hover .menu-icon {
-  color: #1c2420;
-}
-
-.notification-count {
-  margin-left: auto;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 6px;
-  border-radius: 10px;
-  background: #e08a2c;
-  color: #1c2420;
-  font-size: 10px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-/* =========================================================
-   HELP BOX
-   ========================================================= */
-
-.sidebar-help {
-  padding: 15px;
-}
-
-.help-box {
-  padding: 16px;
-  border-radius: 7px;
-  background: #2c352f;
-  border: 1px solid rgba(244, 242, 236, 0.08);
-}
-
-.help-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
-  background: rgba(224, 138, 44, 0.15);
-  color: #e08a2c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.help-box strong {
-  display: block;
-  color: #f4f2ec;
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-
-.help-box p {
-  margin: 0;
-  color: #aaa99f;
-  font-size: 10px;
-  line-height: 1.5;
-}
-
-
-/* =========================================================
-   MAIN CONTENT
-   ========================================================= */
-
-.main-content {
-  margin-left: 255px;
-  width: calc(100% - 255px);
-  min-height: 100vh;
-}
-
-
-/* =========================================================
-   TOPBAR
-   ========================================================= */
-
-.topbar {
-  height: 76px;
-  background: #ffffff;
-  border-bottom: 1px solid #d8d5c9;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
-}
-
-
-/* ---------- Search ---------- */
-
-.search-container {
-  width: 300px;
-  height: 38px;
-  background: #f4f2ec;
-  border: 1px solid #d8d5c9;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-}
-
-.search-icon {
-  color: #77786f;
-  font-size: 13px;
-  margin-right: 9px;
-}
-
-.search-container input {
-  width: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #1c2420;
-  font-family: inherit;
-  font-size: 12px;
-}
-
-.search-container input::placeholder {
-  color: #aaa99f;
-}
-
-
-/* ---------- Topbar Right ---------- */
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.notification-button {
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 6px;
-  background: #f4f2ec;
-  color: #6b6a63;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s ease;
-}
-
-.notification-button:hover {
-  background: #ebe8df;
-  color: #1c2420;
-}
-
-.notification-button i {
-  width: 6px;
-  height: 6px;
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  border-radius: 50%;
-  background: #e08a2c;
-}
-
-
-/* ---------- Profile ---------- */
-
-.profile-area {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-}
-
-.profile-divider {
-  width: 1px;
-  height: 30px;
-  background: #d8d5c9;
-  margin-right: 5px;
-}
-
-.profile-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #1c2420;
-  color: #e08a2c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.profile-info strong {
-  color: #1c2420;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.profile-info span {
-  color: #77786f;
-  font-size: 10px;
-}
-
-.profile-arrow {
-  color: #77786f;
-  font-size: 10px;
-  margin-left: 4px;
-}
-
-
-/* =========================================================
-   DASHBOARD CONTENT
-   ========================================================= */
-
-.dashboard-content {
-  padding: 32px 35px 45px;
 }
 
 
@@ -367,14 +13,14 @@
    WELCOME
    ========================================================= */
 
-.welcome-section {
+.chef-welcome {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 28px;
 }
 
-.welcome-label {
+.chef-welcome-label {
   color: #e08a2c;
   font-size: 11px;
   font-weight: 700;
@@ -383,7 +29,7 @@
   margin-bottom: 6px;
 }
 
-.welcome-section h1 {
+.chef-welcome h1 {
   margin: 0;
   color: #1c2420;
   font-size: 30px;
@@ -392,13 +38,13 @@
   letter-spacing: -0.3px;
 }
 
-.welcome-description {
+.chef-welcome-description {
   margin: 8px 0 0;
   color: #6b6a63;
   font-size: 12px;
 }
 
-.date-button {
+.chef-date-button {
   height: 37px;
   padding: 0 14px;
   border: 1px solid #d8d5c9;
@@ -412,7 +58,7 @@
   gap: 8px;
 }
 
-.date-button span {
+.chef-date-button span {
   color: #e08a2c;
 }
 
@@ -421,14 +67,14 @@
    STATISTICS
    ========================================================= */
 
-.stats-grid {
+.chef-stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 17px;
   margin-bottom: 22px;
 }
 
-.stat-card {
+.chef-stat-card {
   min-height: 125px;
   padding: 19px;
   background: #ffffff;
@@ -441,12 +87,19 @@
   transition: all 0.2s ease;
 }
 
-.stat-card:hover {
+.chef-stat-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(28, 36, 32, 0.08);
 }
 
-.stat-icon {
+.chef-stat-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.chef-stat-icon {
   width: 42px;
   height: 42px;
   border-radius: 7px;
@@ -455,33 +108,23 @@
   justify-content: center;
   font-size: 17px;
   flex-shrink: 0;
-}
-
-.stat-icon.blue,
-.stat-icon.cyan,
-.stat-icon.purple {
   background: rgba(224, 138, 44, 0.12);
   color: #e08a2c;
 }
 
-.stat-icon.yellow {
-  background: rgba(224, 138, 44, 0.15);
-  color: #e08a2c;
-}
-
-.stat-content {
+.chef-stat-content {
   flex: 1;
   min-width: 0;
 }
 
-.stat-label {
+.chef-stat-label {
   margin: 0 0 5px;
   color: #6b6a63;
   font-size: 10px;
   font-weight: 500;
 }
 
-.stat-content h2 {
+.chef-stat-content h2 {
   margin: 0;
   color: #1c2420;
   font-size: 28px;
@@ -489,29 +132,33 @@
   font-weight: 700;
 }
 
-.stat-content p {
+.chef-stat-content h2 span {
+  font-size: 18px;
+}
+
+.chef-stat-content p {
   margin: 7px 0 0;
   color: #77786f;
   font-size: 10px;
 }
 
-.stat-trend {
+.chef-stat-trend {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-top: 7px;
   padding: 3px 6px;
   border-radius: 4px;
   font-size: 9px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
-.stat-trend.positive {
+.chef-stat-trend.positive {
   color: #66785e;
   background: rgba(102, 120, 94, 0.1);
 }
 
-.stat-trend.warning {
+.chef-stat-trend.warning {
   color: #b8452f;
   background: rgba(184, 69, 47, 0.08);
 }
@@ -521,7 +168,7 @@
    MAIN GRID
    ========================================================= */
 
-.main-grid {
+.chef-main-grid {
   display: grid;
   grid-template-columns: 1.55fr 1fr;
   gap: 20px;
@@ -530,10 +177,10 @@
 
 
 /* =========================================================
-   GENERIC CARD
+   CARDS
    ========================================================= */
 
-.dashboard-card {
+.chef-card {
   background: #ffffff;
   border: 1px solid #d8d5c9;
   border-radius: 8px;
@@ -541,7 +188,7 @@
   overflow: hidden;
 }
 
-.card-header {
+.chef-card-header {
   min-height: 66px;
   padding: 16px 19px;
   border-bottom: 1px solid #eeeae1;
@@ -550,7 +197,7 @@
   justify-content: space-between;
 }
 
-.card-header h3 {
+.chef-card-header h3 {
   margin: 0;
   color: #1c2420;
   font-size: 17px;
@@ -558,13 +205,13 @@
   font-weight: 700;
 }
 
-.card-header p {
+.chef-card-header p {
   margin: 4px 0 0;
   color: #77786f;
   font-size: 10px;
 }
 
-.view-all {
+.chef-view-all {
   border: none;
   background: transparent;
   color: #e08a2c;
@@ -575,36 +222,32 @@
   padding: 5px;
 }
 
-.view-all:hover {
-  color: #b46b20;
-}
-
 
 /* =========================================================
    PROJECTS
    ========================================================= */
 
-.projects-list {
+.chef-projects-list {
   padding: 0 19px;
 }
 
-.project-item {
+.chef-project-item {
   padding: 16px 0;
   border-bottom: 1px solid #eeeae1;
 }
 
-.project-item:last-child {
+.chef-project-item:last-child {
   border-bottom: none;
 }
 
-.project-top {
+.chef-project-top {
   display: flex;
   align-items: center;
   gap: 11px;
   margin-bottom: 11px;
 }
 
-.project-symbol {
+.chef-project-symbol {
   width: 35px;
   height: 35px;
   border-radius: 6px;
@@ -613,21 +256,16 @@
   justify-content: center;
   font-size: 14px;
   flex-shrink: 0;
-}
-
-.blue-bg,
-.cyan-bg,
-.purple-bg {
   background: rgba(224, 138, 44, 0.12);
   color: #e08a2c;
 }
 
-.project-name {
+.chef-project-name {
   flex: 1;
   min-width: 0;
 }
 
-.project-name strong {
+.chef-project-name strong {
   display: block;
   color: #1c2420;
   font-size: 14px;
@@ -637,14 +275,14 @@
   text-overflow: ellipsis;
 }
 
-.project-name span {
+.chef-project-name span {
   display: block;
   color: #77786f;
   font-size: 10px;
   margin-top: 4px;
 }
 
-.project-status {
+.chef-project-status {
   padding: 4px 7px;
   border-radius: 4px;
   font-size: 9px;
@@ -652,12 +290,12 @@
   white-space: nowrap;
 }
 
-.active-status {
+.chef-active-status {
   color: #b46b20;
   background: rgba(224, 138, 44, 0.12);
 }
 
-.progress-label {
+.chef-progress-label {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -666,12 +304,12 @@
   margin-bottom: 5px;
 }
 
-.progress-label strong {
+.chef-progress-label strong {
   color: #1c2420;
   font-size: 10px;
 }
 
-.progress-bar {
+.chef-progress-bar {
   height: 6px;
   width: 100%;
   border-radius: 10px;
@@ -679,19 +317,14 @@
   background: #eeeae1;
 }
 
-.progress-fill {
+.chef-progress-fill {
   height: 100%;
   border-radius: 10px;
   transition: width 0.4s ease;
-}
-
-.blue-progress,
-.cyan-progress,
-.purple-progress {
   background: #e08a2c;
 }
 
-.project-footer {
+.chef-project-footer {
   display: flex;
   justify-content: space-between;
   margin-top: 7px;
@@ -704,11 +337,11 @@
    ACTIVITIES
    ========================================================= */
 
-.activities-list {
+.chef-activities-list {
   padding: 0 19px;
 }
 
-.activity-item {
+.chef-activity-item {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -716,14 +349,11 @@
   border-bottom: 1px solid #eeeae1;
 }
 
-.activity-item:last-child {
+.chef-activity-item:last-child {
   border-bottom: none;
 }
 
-
-/* Icône légèrement plus grande */
-
-.activity-icon {
+.chef-activity-icon {
   width: 36px;
   height: 36px;
   border-radius: 6px;
@@ -732,25 +362,16 @@
   justify-content: center;
   font-size: 14px;
   flex-shrink: 0;
-}
-
-.activity-icon.money,
-.activity-icon.equipment,
-.activity-icon.employee,
-.activity-icon.stock {
   background: rgba(224, 138, 44, 0.12);
   color: #e08a2c;
 }
 
-
-/* Texte des activités agrandi */
-
-.activity-content {
+.chef-activity-content {
   flex: 1;
   min-width: 0;
 }
 
-.activity-content strong {
+.chef-activity-content strong {
   display: block;
   color: #1c2420;
   font-size: 14px;
@@ -758,35 +379,28 @@
   line-height: 1.5;
 }
 
-.activity-content span {
+.chef-activity-content span {
   display: block;
   color: #6b6a63;
   font-size: 11px;
   margin-top: 4px;
-  line-height: 1.4;
 }
 
-.activity-content small {
+.chef-activity-content small {
   display: block;
   color: #aaa99f;
   font-size: 11px;
   margin-top: 4px;
-  line-height: 1.3;
 }
 
-.more-button {
+.chef-more-button {
   color: #77786f;
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 13px;
 }
 
-.more-button:hover {
-  color: #e08a2c;
-}
-
-.all-activities {
+.chef-all-activities {
   width: calc(100% - 38px);
   height: 35px;
   margin: 4px 19px 15px;
@@ -798,12 +412,6 @@
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.all-activities:hover {
-  border-color: #e08a2c;
-  color: #e08a2c;
 }
 
 
@@ -811,7 +419,7 @@
    BOTTOM GRID
    ========================================================= */
 
-.bottom-grid {
+.chef-bottom-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
@@ -823,11 +431,11 @@
    ALERTS
    ========================================================= */
 
-.alerts-list {
+.chef-alerts-list {
   padding: 4px 19px 12px;
 }
 
-.alert-item {
+.chef-alert-item {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -835,11 +443,11 @@
   border-bottom: 1px solid #eeeae1;
 }
 
-.alert-item:last-child {
+.chef-alert-item:last-child {
   border-bottom: none;
 }
 
-.alert-icon {
+.chef-alert-icon {
   width: 31px;
   height: 31px;
   border-radius: 6px;
@@ -850,34 +458,34 @@
   flex-shrink: 0;
 }
 
-.warning-alert {
+.chef-warning-alert {
   background: rgba(224, 138, 44, 0.07);
 }
 
-.danger-alert {
+.chef-danger-alert {
   background: rgba(184, 69, 47, 0.06);
 }
 
-.info-alert {
+.chef-info-alert {
   background: rgba(28, 36, 32, 0.04);
 }
 
-.warning-alert .alert-icon {
+.chef-warning-alert .chef-alert-icon {
   background: rgba(224, 138, 44, 0.15);
   color: #b46b20;
 }
 
-.danger-alert .alert-icon {
+.chef-danger-alert .chef-alert-icon {
   background: rgba(184, 69, 47, 0.1);
   color: #b8452f;
 }
 
-.info-alert .alert-icon {
+.chef-info-alert .chef-alert-icon {
   background: rgba(28, 36, 32, 0.08);
   color: #1c2420;
 }
 
-.alert-number {
+.chef-alert-number {
   width: 21px;
   height: 21px;
   border-radius: 50%;
@@ -891,25 +499,25 @@
   flex-shrink: 0;
 }
 
-.alert-content {
+.chef-alert-content {
   flex: 1;
 }
 
-.alert-item strong {
+.chef-alert-item strong {
   display: block;
   color: #1c2420;
   font-size: 11px;
   font-weight: 600;
 }
 
-.alert-item span {
+.chef-alert-item span {
   display: block;
   color: #6b6a63;
   font-size: 8px;
   margin-top: 3px;
 }
 
-.alert-item button {
+.chef-alert-item button {
   border: none;
   background: transparent;
   color: #e08a2c;
@@ -923,14 +531,14 @@
    QUICK ACTIONS
    ========================================================= */
 
-.quick-actions {
+.chef-quick-actions {
   padding: 16px 19px 19px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
-.quick-action {
+.chef-quick-action {
   min-height: 64px;
   padding: 10px;
   border: 1px solid #d8d5c9;
@@ -943,16 +551,9 @@
   cursor: pointer;
   font-family: inherit;
   text-align: left;
-  transition: all 0.2s ease;
 }
 
-.quick-action:hover {
-  border-color: #e08a2c;
-  background: rgba(224, 138, 44, 0.04);
-  transform: translateY(-1px);
-}
-
-.quick-icon {
+.chef-quick-icon {
   width: 32px;
   height: 32px;
   border-radius: 6px;
@@ -961,29 +562,22 @@
   justify-content: center;
   font-size: 12px;
   flex-shrink: 0;
-}
-
-.quick-icon.blue,
-.quick-icon.green,
-.quick-icon.purple,
-.quick-icon.orange {
   background: rgba(224, 138, 44, 0.12);
   color: #e08a2c;
 }
 
-.quick-action span {
+.chef-quick-action span {
   color: #3a392f;
   font-size: 10px;
   font-weight: 600;
-  line-height: 1.35;
 }
 
 
 /* =========================================================
-   AI ASSISTANT
+   AI
    ========================================================= */
 
-.ai-card {
+.chef-ai-card {
   min-height: 105px;
   padding: 20px 23px;
   border-radius: 8px;
@@ -996,7 +590,7 @@
   overflow: hidden;
 }
 
-.ai-card::after {
+.chef-ai-card::after {
   content: "";
   position: absolute;
   width: 180px;
@@ -1008,7 +602,7 @@
   pointer-events: none;
 }
 
-.ai-icon {
+.chef-ai-icon {
   width: 44px;
   height: 44px;
   border-radius: 8px;
@@ -1023,13 +617,14 @@
   z-index: 1;
 }
 
-.ai-content {
+.chef-ai-content {
   flex: 1;
   min-width: 0;
   z-index: 1;
 }
 
-.ai-label {
+.chef-ai-label {
+  display: block;
   margin-bottom: 4px;
   color: #e08a2c;
   font-size: 9px;
@@ -1038,22 +633,21 @@
   text-transform: uppercase;
 }
 
-.ai-card h3 {
+.chef-ai-card h3 {
   margin: 0;
   color: #f4f2ec;
   font-size: 18px;
   line-height: 1.3;
-  font-weight: 700;
 }
 
-.ai-card p {
+.chef-ai-card p {
   margin: 5px 0 0;
   color: #aaa99f;
   font-size: 10px;
   line-height: 1.5;
 }
 
-.ai-button {
+.chef-ai-button {
   height: 35px;
   padding: 0 14px;
   border: none;
@@ -1065,295 +659,67 @@
   font-weight: 700;
   cursor: pointer;
   z-index: 1;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.ai-button:hover {
-  background: #f0a04a;
-  transform: translateY(-1px);
 }
 
 
 /* =========================================================
-   SCROLLBAR
-   ========================================================= */
-
-.sidebar-menu::-webkit-scrollbar {
-  width: 4px;
-}
-
-.sidebar-menu::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.sidebar-menu::-webkit-scrollbar-thumb {
-  background: #2c352f;
-  border-radius: 10px;
-}
-
-
-/* =========================================================
-   RESPONSIVE — 1200px
+   RESPONSIVE
    ========================================================= */
 
 @media (max-width: 1200px) {
 
-  .stats-grid {
+  .chef-stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .main-grid {
+  .chef-main-grid {
     grid-template-columns: 1fr;
   }
 
-  .bottom-grid {
+  .chef-bottom-grid {
     grid-template-columns: 1fr;
   }
-
-  .dashboard-content {
-    padding: 28px 25px 40px;
-  }
 }
 
-
-/* =========================================================
-   RESPONSIVE — 850px
-   ========================================================= */
-
-@media (max-width: 850px) {
-
-  .sidebar {
-    width: 70px;
-  }
-
-  .sidebar-logo {
-    padding: 0;
-    justify-content: center;
-  }
-
-  .logo-text {
-    display: none;
-  }
-
-  .sidebar-menu {
-    padding: 20px 10px;
-  }
-
-  .menu-title {
-    display: none;
-  }
-
-  .menu-item {
-    justify-content: center;
-    padding: 0;
-    position: relative;
-  }
-
-  .menu-item span:not(.notification-count) {
-    display: none;
-  }
-
-  .menu-icon {
-    font-size: 16px;
-  }
-
-  .notification-count {
-    position: absolute;
-    top: 4px;
-    right: 7px;
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    font-size: 8px;
-    padding: 0;
-  }
-
-  .sidebar-help {
-    padding: 10px;
-  }
-
-  .help-box {
-    padding: 10px 5px;
-    text-align: center;
-  }
-
-  .help-box strong,
-  .help-box p {
-    display: none;
-  }
-
-  .help-icon {
-    margin: 0 auto;
-  }
-
-  .main-content {
-    margin-left: 70px;
-    width: calc(100% - 70px);
-  }
-
-  .topbar {
-    padding: 0 22px;
-  }
-
-  .search-container {
-    width: 230px;
-  }
-
-  .profile-info,
-  .profile-arrow {
-    display: none;
-  }
-
-  .welcome-section h1 {
-    font-size: 27px;
-  }
-
-  .activity-content strong {
-    font-size: 11px;
-  }
-
-  .activity-content span {
-    font-size: 10px;
-  }
-
-  .activity-content small {
-    font-size: 9px;
-  }
-}
-
-
-/* =========================================================
-   RESPONSIVE — 650px
-   ========================================================= */
 
 @media (max-width: 650px) {
 
-  .sidebar {
-    width: 0;
-    display: none;
-  }
-
-  .main-content {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .topbar {
-    height: 65px;
-    padding: 0 15px;
-  }
-
-  .search-container {
-    width: 170px;
-  }
-
-  .topbar-right {
-    gap: 8px;
-  }
-
-  .profile-divider {
-    display: none;
-  }
-
-  .dashboard-content {
-    padding: 22px 15px 35px;
-  }
-
-  .welcome-section {
+  .chef-welcome {
     align-items: flex-start;
     flex-direction: column;
     gap: 15px;
     margin-bottom: 22px;
   }
 
-  .welcome-section h1 {
+  .chef-welcome h1 {
     font-size: 25px;
   }
 
-  .welcome-description {
-    font-size: 11px;
-  }
-
-  .date-button {
-    align-self: flex-start;
-  }
-
-  .stats-grid {
+  .chef-stats-grid {
     grid-template-columns: 1fr;
     gap: 12px;
   }
 
-  .stat-card {
-    min-height: 105px;
-  }
-
-  .main-grid,
-  .bottom-grid {
+  .chef-main-grid,
+  .chef-bottom-grid {
     gap: 14px;
-    margin-bottom: 14px;
   }
 
-  .card-header {
-    padding: 14px 15px;
-  }
-
-  .card-header h3 {
-    font-size: 15px;
-  }
-
-  .projects-list,
-  .activities-list {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .activity-item {
-    gap: 10px;
-    padding: 13px 0;
-  }
-
-  .activity-icon {
-    width: 34px;
-    height: 34px;
-    font-size: 13px;
-  }
-
-  .activity-content strong {
-    font-size: 11px;
-  }
-
-  .activity-content span {
-    font-size: 10px;
-  }
-
-  .activity-content small {
-    font-size: 9px;
-  }
-
-  .all-activities {
-    width: calc(100% - 30px);
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-
-  .quick-actions {
+  .chef-quick-actions {
     grid-template-columns: 1fr;
-    padding: 13px 15px 15px;
   }
 
-  .ai-card {
+  .chef-ai-card {
     padding: 17px;
     align-items: flex-start;
     flex-wrap: wrap;
   }
 
-  .ai-content {
+  .chef-ai-content {
     width: calc(100% - 61px);
   }
 
-  .ai-button {
+  .chef-ai-button {
     width: 100%;
-    margin-top: 4px;
   }
 }
