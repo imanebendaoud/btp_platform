@@ -33,6 +33,7 @@ class RapportChantierSerializer(serializers.ModelSerializer):
     class Meta:
         model = RapportChantier
         fields = "__all__"
+        read_only_fields = ["id_utilisateur"]
 
 
 class PhotoSerializer(serializers.ModelSerializer):
@@ -45,6 +46,7 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = "__all__"
+        read_only_fields = ["id_utilisateur"]
 
 
 class NotificationSerializer(serializers.ModelSerializer):

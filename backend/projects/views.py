@@ -374,6 +374,7 @@ class RapportChantierViewSet(viewsets.ModelViewSet):
 
         "destroy": [
             "ADMINISTRATEUR",
+            "CHEF_CHANTIER",
         ],
     }
 
@@ -392,7 +393,7 @@ class RapportChantierViewSet(viewsets.ModelViewSet):
         if role == "CHEF_CHANTIER":
 
             return RapportChantier.objects.filter(
-                id_projet__id_chef_projet_id=user.id_utilisateur
+                id_utilisateur_id=user.id_utilisateur
             )
 
         return RapportChantier.objects.none()
@@ -414,7 +415,7 @@ class RapportChantierViewSet(viewsets.ModelViewSet):
                 "Vous ne pouvez pas créer un rapport sur ce chantier."
             )
 
-        serializer.save()
+        serializer.save(id_utilisateur=user)
 
 
 # ============================================================
@@ -451,12 +452,10 @@ class PhotoViewSet(viewsets.ModelViewSet):
 
         "update": [
             "ADMINISTRATEUR",
-            "CHEF_CHANTIER",
         ],
 
         "partial_update": [
             "ADMINISTRATEUR",
-            "CHEF_CHANTIER",
         ],
 
         "destroy": [
@@ -548,6 +547,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
 
         "destroy": [
             "ADMINISTRATEUR",
+            "CHEF_CHANTIER",
         ],
     }
 
@@ -566,7 +566,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         if role == "CHEF_CHANTIER":
 
             return Document.objects.filter(
-                id_projet__id_chef_projet_id=user.id_utilisateur
+                 id_projet__id_chef_projet_id=user.id_utilisateur
             )
 
         return Document.objects.none()
@@ -588,7 +588,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 "Vous ne pouvez pas ajouter un document sur ce chantier."
             )
 
-        serializer.save()
+        serializer.save(id_utilisateur=user)
 
 
 # ============================================================
