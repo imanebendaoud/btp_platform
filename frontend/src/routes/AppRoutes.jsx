@@ -7,7 +7,9 @@ import Login from "../pages/Login";
 import Dashboard from "../pages/admin/Dashboard";
 import ChefDashboard from "../pages/chefprojet/ChefDashboard";
 import PlaceholderPage from "../pages/PlaceholderPage";
-
+import ProjectsList from "../pages/admin/projects/ProjectsList";
+import ProjectForm from "../pages/admin/projects/ProjectForm";
+import ProjectDetail from "../pages/admin/projects/ProjectDetail";
 // ======================================================
 // PROTECTION DES ROUTES
 // ======================================================
@@ -171,11 +173,34 @@ function AppRoutes() {
           path="/admin/projets"
           element={
             <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
-              <PlaceholderPage />
+              <ProjectsList />
             </RoleRoute>
           }
         />
-
+        <Route
+          path="/admin/projets/nouveau"
+          element={
+            <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+              <ProjectForm />
+            </RoleRoute>
+          }
+        />
+        <Route
+          path="/admin/projets/:id"
+          element={
+            <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+              <ProjectDetail />
+            </RoleRoute>
+          }
+        />
+        <Route
+          path="/admin/projets/:id/modifier"
+          element={
+            <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+              <ProjectForm />
+            </RoleRoute>
+          }
+        />
         <Route
           path="/admin/utilisateurs"
           element={
