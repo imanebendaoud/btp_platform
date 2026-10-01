@@ -190,6 +190,91 @@
   padding: 10px 0 16px;
 }
 
+.proj-table-wrap {
+  border: 1px solid #eeeae1;
+  border-radius: 6px;
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.proj-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  min-width: 420px;
+}
+
+.proj-table thead {
+  background: #f4f2ec;
+}
+
+.proj-table th {
+  text-align: left;
+  padding: 9px 14px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #6b6a63;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.proj-table td {
+  padding: 11px 14px;
+  border-top: 1px solid #eeeae1;
+  color: #1c2420;
+  vertical-align: top;
+}
+
+.proj-table tbody tr:hover {
+  background: #fafaf8;
+}
+
+.proj-table a {
+  color: #1c2420;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.proj-table a:hover {
+  color: #e08a2c;
+}
+
+.proj-status-chip {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: #eeeae1;
+  color: #6b6a63;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.proj-status-chip-Àfaire {
+  background: #eeeae1;
+  color: #6b6a63;
+}
+
+.proj-status-chip-Encours {
+  background: rgba(224, 138, 44, 0.15);
+  color: #b46b20;
+}
+
+.proj-status-chip-Terminée {
+  background: rgba(102, 120, 94, 0.12);
+  color: #4d7659;
+}
+
+.proj-detail-readonly-note {
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid #eeeae1;
+  color: #aaa99f;
+  font-size: 11.5px;
+  font-style: italic;
+}
+
 /* TÂCHES */
 
 .proj-tache-list {
@@ -341,8 +426,199 @@
   cursor: not-allowed;
 }
 
+/* CHEF DE CHANTIER */
+
+.proj-chef-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.proj-chef-avatar {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #1c2420;
+  color: #e08a2c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.proj-chef-name {
+  margin: 0;
+  color: #1c2420;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.proj-chef-email {
+  margin: 3px 0 0;
+  color: #77786f;
+  font-size: 11.5px;
+}
+
+/* DOCUMENTS */
+
+.proj-doc-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.proj-doc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid #eeeae1;
+  font-size: 13px;
+}
+
+.proj-doc-item:first-child {
+  border-top: none;
+}
+
+.proj-doc-type {
+  flex-shrink: 0;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: #eeeae1;
+  color: #6b6a63;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.proj-doc-name {
+  flex: 1;
+  color: #1c2420;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.proj-doc-name:hover {
+  color: #e08a2c;
+}
+
+.proj-doc-date {
+  color: #77786f;
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+/* PHOTOS */
+
+.proj-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.proj-photo-item {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #d8d5c9;
+}
+
+.proj-photo-item img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+  background: #eeeae1;
+}
+
+.proj-photo-caption {
+  margin: 0;
+  padding: 6px 8px;
+  font-size: 10.5px;
+  color: #6b6a63;
+  background: #ffffff;
+}
+
+.proj-photo-delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(28, 36, 32, 0.65);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.proj-photo-delete:hover {
+  background: #b8452f;
+}
+
+/* RAPPORTS */
+
+.proj-rapport-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.proj-rapport-item {
+  padding: 10px 0;
+  border-top: 1px solid #eeeae1;
+}
+
+.proj-rapport-item:first-child {
+  border-top: none;
+}
+
+.proj-rapport-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.proj-rapport-type {
+  flex-shrink: 0;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: rgba(224, 138, 44, 0.15);
+  color: #b46b20;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.proj-rapport-header strong {
+  flex: 1;
+  color: #1c2420;
+}
+
+.proj-rapport-date {
+  color: #77786f;
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.proj-rapport-contenu {
+  margin: 6px 0 0;
+  color: #3a392f;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
 @media (max-width: 750px) {
   .proj-detail-grid {
     grid-template-columns: 1fr;
+  }
+
+  .proj-photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   }
 }

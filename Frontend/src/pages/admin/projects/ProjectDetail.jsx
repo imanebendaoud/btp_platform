@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 import {
   getProject,
   deleteProject,
   getTaches,
-  createTache,
-  updateTache,
-  deleteTache,
   getAvancements,
-  createAvancement,
+  getDocuments,
+  getPhotos,
+  getRapports,
 } from "../../../services/projectsService";
+import { getUsers } from "../../../services/usersService";
 import "./ProjectDetail.css";
 
 const STATUS_LABELS = {
@@ -19,33 +20,41 @@ const STATUS_LABELS = {
   TERMINE: "Terminé",
 };
 
-const TACHE_STATUTS = ["À faire", "En cours", "Terminée"];
-
-const EMPTY_TACHE = { titre: "", date_fin_prevue: "", priorite: "Normale" };
-const EMPTY_AVANCEMENT = { pourcentage: "", commentaire: "" };
-
 function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [projet, setProjet] = useState(null);
   const [taches, setTaches] = useState([]);
   const [avancements, setAvancements] = useState([]);
+  const [documents, setDocuments] = useState([]);
+  const [photos, setPhotos] = useState([]);
+  const [rapports, setRapports] = useState([]);
+  const [chef, setChef] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  const [newTache, setNewTache] = useState(EMPTY_TACHE);
-  const [newAvancement, setNewAvancement] = useState(EMPTY_AVANCEMENT);
-  const [savingTache, setSavingTache] = useState(false);
-  const [savingAvancement, setSavingAvancement] = useState(false);
 
   const loadAll = async () => {
     try {
       setLoading(true);
-      const [projetData, tachesData, avancementsData] = await Promise.all([
+      const [
+        projetData,
+        tachesData,
+        avancementsData,
+        documentsData,
+        photosData,
+        rapportsData,
+        usersData,
+      ] = await Promise.all([
         getProject(id),
         getTaches(),
         getAvancements(),
+        getDocuments(),
+        getPhotos(),
+        getRapports(),
+        getUsers(),
       ]);
 
       setProjet(projetData);
@@ -54,6 +63,18 @@ function ProjectDetail() {
         avancementsData
           .filter((a) => String(a.id_projet) === String(id))
           .sort((a, b) => new Date(b.date_avancement) - new Date(a.date_avancement))
+      );
+      setDocuments(documentsData.filter((d) => String(d.id_projet) === String(id)));
+      setPhotos(photosData.filter((p) => String(p.id_projet) === String(id)));
+      setRapports(
+        rapportsData
+          .filter((r) => String(r.id_projet) === String(id))
+          .sort((a, b) => new Date(b.date_rapport) - new Date(a.date_rapport))
+      );
+      setChef(
+        usersData.find(
+          (u) => String(u.id_utilisateur) === String(projetData.id_chef_projet)
+        ) || null
       );
       setError("");
     } catch (err) {
@@ -78,80 +99,6 @@ function ProjectDetail() {
     } catch (err) {
       console.error("Erreur suppression :", err);
       alert("Impossible de supprimer ce projet.");
-    }
-  };
-
-  // ---------- TÂCHES ----------
-
-  const handleAddTache = async (e) => {
-    e.preventDefault();
-    if (!newTache.titre.trim()) return;
-
-    setSavingTache(true);
-    try {
-      const created = await createTache({
-        id_projet: id,
-        titre: newTache.titre,
-        date_fin_prevue: newTache.date_fin_prevue || null,
-        priorite: newTache.priorite,
-        statut: "À faire",
-      });
-      setTaches((prev) => [...prev, created]);
-      setNewTache(EMPTY_TACHE);
-    } catch (err) {
-      console.error("Erreur création tâche :", err);
-      alert("Impossible d'ajouter cette tâche.");
-    } finally {
-      setSavingTache(false);
-    }
-  };
-
-  const handleToggleTacheStatut = async (tache) => {
-    const currentIndex = TACHE_STATUTS.indexOf(tache.statut);
-    const nextStatut = TACHE_STATUTS[(currentIndex + 1) % TACHE_STATUTS.length] || "À faire";
-
-    try {
-      const updated = await updateTache(tache.id_tache, { statut: nextStatut });
-      setTaches((prev) => prev.map((t) => (t.id_tache === tache.id_tache ? updated : t)));
-    } catch (err) {
-      console.error("Erreur mise à jour tâche :", err);
-    }
-  };
-
-  const handleDeleteTache = async (tacheId) => {
-    try {
-      await deleteTache(tacheId);
-      setTaches((prev) => prev.filter((t) => t.id_tache !== tacheId));
-    } catch (err) {
-      console.error("Erreur suppression tâche :", err);
-    }
-  };
-
-  // ---------- AVANCEMENT ----------
-
-  const handleAddAvancement = async (e) => {
-    e.preventDefault();
-    const pourcentage = Number(newAvancement.pourcentage);
-    if (Number.isNaN(pourcentage) || pourcentage < 0 || pourcentage > 100) {
-      alert("Le pourcentage doit être compris entre 0 et 100.");
-      return;
-    }
-
-    setSavingAvancement(true);
-    try {
-      const created = await createAvancement({
-        id_projet: id,
-        pourcentage,
-        commentaire: newAvancement.commentaire,
-        date_avancement: new Date().toISOString().slice(0, 10),
-      });
-      setAvancements((prev) => [created, ...prev]);
-      setNewAvancement(EMPTY_AVANCEMENT);
-    } catch (err) {
-      console.error("Erreur création avancement :", err);
-      alert("Impossible d'enregistrer cet avancement.");
-    } finally {
-      setSavingAvancement(false);
     }
   };
 
@@ -235,111 +182,211 @@ function ProjectDetail() {
           </div>
         </div>
 
+        {/* CHEF DE CHANTIER */}
         <div className="proj-detail-card">
-          <h2>Description</h2>
-          <p className="proj-detail-description">
-            {projet.description || "Aucune description renseignée."}
-          </p>
+          <h2>Chef de chantier</h2>
+
+          {chef ? (
+            <div className="proj-chef-card">
+              <div className="proj-chef-avatar">
+                {chef.prenom?.charAt(0)}
+                {chef.nom?.charAt(0)}
+              </div>
+              <div>
+                <p className="proj-chef-name">{chef.prenom} {chef.nom}</p>
+                <p className="proj-chef-email">{chef.email}</p>
+              </div>
+            </div>
+          ) : (
+            <p className="proj-detail-empty">
+              Aucun chef de chantier assigné à ce projet.
+            </p>
+          )}
         </div>
 
       </div>
 
-      {/* TÂCHES */}
+      <div className="proj-detail-card proj-detail-section">
+        <h2>Description</h2>
+        <p className="proj-detail-description">
+          {projet.description || "Aucune description renseignée."}
+        </p>
+      </div>
+
+      {/* TÂCHES — tableau, lecture seule */}
       <div className="proj-detail-card proj-detail-section">
         <h2>Tâches ({taches.length})</h2>
 
         {taches.length === 0 ? (
           <p className="proj-detail-empty">Aucune tâche pour ce projet.</p>
         ) : (
-          <ul className="proj-tache-list">
-            {taches.map((t) => (
-              <li key={t.id_tache} className="proj-tache-item">
-                <button
-                  className={`proj-tache-statut proj-tache-statut-${t.statut?.replace(/\s/g, "")}`}
-                  onClick={() => handleToggleTacheStatut(t)}
-                  title="Cliquer pour changer le statut"
-                >
-                  {t.statut || "À faire"}
-                </button>
-
-                <span className="proj-tache-titre">{t.titre}</span>
-
-                {t.date_fin_prevue && (
-                  <span className="proj-tache-date">Échéance : {formatDate(t.date_fin_prevue)}</span>
-                )}
-
-                <button className="proj-tache-delete" onClick={() => handleDeleteTache(t.id_tache)}>
-                  ✕
-                </button>
-              </li>
-            ))}
-          </ul>
+          <div className="proj-table-wrap">
+            <table className="proj-table">
+              <thead>
+                <tr>
+                  <th>Statut</th>
+                  <th>Titre</th>
+                  <th>Priorité</th>
+                  <th>Échéance</th>
+                </tr>
+              </thead>
+              <tbody>
+                {taches.map((t) => (
+                  <tr key={t.id_tache}>
+                    <td>
+                      <span
+                        className={`proj-status-chip proj-status-chip-${t.statut?.replace(/\s/g, "")}`}
+                      >
+                        {t.statut || "À faire"}
+                      </span>
+                    </td>
+                    <td>{t.titre}</td>
+                    <td>{t.priorite || "—"}</td>
+                    <td>{formatDate(t.date_fin_prevue)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
 
-        <form className="proj-inline-form" onSubmit={handleAddTache}>
-          <input
-            type="text"
-            placeholder="Nouvelle tâche..."
-            value={newTache.titre}
-            onChange={(e) => setNewTache({ ...newTache, titre: e.target.value })}
-          />
-          <input
-            type="date"
-            value={newTache.date_fin_prevue}
-            onChange={(e) => setNewTache({ ...newTache, date_fin_prevue: e.target.value })}
-          />
-          <select
-            value={newTache.priorite}
-            onChange={(e) => setNewTache({ ...newTache, priorite: e.target.value })}
-          >
-            <option value="Basse">Basse</option>
-            <option value="Normale">Normale</option>
-            <option value="Haute">Haute</option>
-          </select>
-          <button type="submit" disabled={savingTache}>
-            {savingTache ? "..." : "Ajouter"}
-          </button>
-        </form>
+        <p className="proj-detail-readonly-note">
+          La gestion des tâches est effectuée par le chef de chantier assigné au projet.
+        </p>
       </div>
 
-      {/* AVANCEMENT — HISTORIQUE */}
+      {/* AVANCEMENT — tableau, lecture seule */}
       <div className="proj-detail-card proj-detail-section">
-        <h2>Historique d'avancement</h2>
+        <h2>Historique d'avancement ({avancements.length})</h2>
 
         {avancements.length === 0 ? (
           <p className="proj-detail-empty">Aucun avancement enregistré.</p>
         ) : (
-          <ul className="proj-avancement-list">
-            {avancements.map((a) => (
-              <li key={a.id_avancement} className="proj-avancement-item">
-                <strong>{a.pourcentage}%</strong>
-                <span className="proj-avancement-date">{formatDate(a.date_avancement)}</span>
-                {a.commentaire && <p>{a.commentaire}</p>}
-              </li>
-            ))}
-          </ul>
+          <div className="proj-table-wrap">
+            <table className="proj-table">
+              <thead>
+                <tr>
+                  <th>%</th>
+                  <th>Date</th>
+                  <th>Commentaire</th>
+                </tr>
+              </thead>
+              <tbody>
+                {avancements.map((a) => (
+                  <tr key={a.id_avancement}>
+                    <td><strong>{a.pourcentage}%</strong></td>
+                    <td>{formatDate(a.date_avancement)}</td>
+                    <td>{a.commentaire || "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
 
-        <form className="proj-inline-form" onSubmit={handleAddAvancement}>
-          <input
-            type="number"
-            min="0"
-            max="100"
-            placeholder="% avancement"
-            value={newAvancement.pourcentage}
-            onChange={(e) => setNewAvancement({ ...newAvancement, pourcentage: e.target.value })}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Commentaire (optionnel)"
-            value={newAvancement.commentaire}
-            onChange={(e) => setNewAvancement({ ...newAvancement, commentaire: e.target.value })}
-          />
-          <button type="submit" disabled={savingAvancement}>
-            {savingAvancement ? "..." : "Enregistrer"}
-          </button>
-        </form>
+        <p className="proj-detail-readonly-note">
+          Les mises à jour d'avancement sont saisies par le chef de chantier depuis le terrain.
+        </p>
+      </div>
+
+      {/* DOCUMENTS — tableau, lecture seule */}
+      <div className="proj-detail-card proj-detail-section">
+        <h2>Documents ({documents.length})</h2>
+
+        {documents.length === 0 ? (
+          <p className="proj-detail-empty">Aucun document pour ce projet.</p>
+        ) : (
+          <div className="proj-table-wrap">
+            <table className="proj-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Nom</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {documents.map((d) => (
+                  <tr key={d.id_document}>
+                    <td>
+                      <span className="proj-status-chip">{d.type_document}</span>
+                    </td>
+                    <td>
+                      <a href={d.chemin_fichier} target="_blank" rel="noreferrer">
+                        {d.nom_document}
+                      </a>
+                    </td>
+                    <td>{formatDate(d.date_ajout)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        <p className="proj-detail-readonly-note">
+          Les documents sont ajoutés par le chef de chantier depuis le terrain.
+        </p>
+      </div>
+
+      {/* PHOTOS — galerie, lecture seule */}
+      <div className="proj-detail-card proj-detail-section">
+        <h2>Photos du chantier ({photos.length})</h2>
+
+        {photos.length === 0 ? (
+          <p className="proj-detail-empty">Aucune photo pour ce projet.</p>
+        ) : (
+          <div className="proj-photo-grid">
+            {photos.map((p) => (
+              <div key={p.id_photo} className="proj-photo-item">
+                <img src={p.chemin_photo} alt={p.description || "Photo chantier"} />
+                {p.description && <p className="proj-photo-caption">{p.description}</p>}
+              </div>
+            ))}
+          </div>
+        )}
+
+        <p className="proj-detail-readonly-note">
+          Les photos sont ajoutées par le chef de chantier depuis le terrain.
+        </p>
+      </div>
+
+      {/* RAPPORTS DE CHANTIER — tableau, lecture seule */}
+      <div className="proj-detail-card proj-detail-section">
+        <h2>Rapports de chantier ({rapports.length})</h2>
+
+        {rapports.length === 0 ? (
+          <p className="proj-detail-empty">Aucun rapport pour ce projet.</p>
+        ) : (
+          <div className="proj-table-wrap">
+            <table className="proj-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Titre</th>
+                  <th>Date</th>
+                  <th>Contenu</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rapports.map((r) => (
+                  <tr key={r.id_rapport}>
+                    <td>
+                      <span className="proj-status-chip">{r.type_rapport}</span>
+                    </td>
+                    <td>{r.titre}</td>
+                    <td>{formatDate(r.date_rapport)}</td>
+                    <td>{r.contenu || "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        <p className="proj-detail-readonly-note">
+          Les rapports sont rédigés par le chef de chantier depuis le terrain.
+        </p>
       </div>
 
     </div>

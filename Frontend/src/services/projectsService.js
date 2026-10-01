@@ -67,3 +67,63 @@ export const createAvancement = async (payload) => {
   const response = await api.post(AVANCEMENTS_BASE, payload);
   return response.data;
 };
+
+// =========================
+// DOCUMENTS
+// =========================
+
+const DOCUMENTS_BASE = "/projects/documents/";
+
+export const getDocuments = async () => {
+  const response = await api.get(DOCUMENTS_BASE);
+  return response.data.results ?? response.data;
+};
+
+export const createDocument = async (payload) => {
+  const response = await api.post(DOCUMENTS_BASE, payload);
+  return response.data;
+};
+
+export const deleteDocument = async (id) => {
+  await api.delete(`${DOCUMENTS_BASE}${id}/`);
+};
+
+// =========================
+// PHOTOS
+// =========================
+
+const PHOTOS_BASE = "/projects/photos/";
+
+export const getPhotos = async () => {
+  const response = await api.get(PHOTOS_BASE);
+  return response.data.results ?? response.data;
+};
+
+export const createPhoto = async (payload) => {
+  const response = await api.post(PHOTOS_BASE, payload);
+  return response.data;
+};
+
+export const deletePhoto = async (id) => {
+  await api.delete(`${PHOTOS_BASE}${id}/`);
+};
+
+// =========================
+// RAPPORTS DE CHANTIER
+// =========================
+
+const RAPPORTS_BASE = "/projects/rapports/";
+
+export const getRapports = async () => {
+  const response = await api.get(RAPPORTS_BASE);
+  return response.data.results ?? response.data;
+};
+
+export const createRapport = async (payload) => {
+  const response = await api.post(RAPPORTS_BASE, payload);
+  return response.data;
+};
+
+export const deleteRapport = async (id) => {
+  await api.delete(`${RAPPORTS_BASE}${id}/`);
+};
