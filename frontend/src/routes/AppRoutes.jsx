@@ -10,6 +10,7 @@ import PlaceholderPage from "../pages/PlaceholderPage";
 import ProjectsList from "../pages/admin/projects/ProjectsList";
 import ProjectForm from "../pages/admin/projects/ProjectForm";
 import ProjectDetail from "../pages/admin/projects/ProjectDetail";
+import ChefProjects from "../pages/chefprojet/ChefProjects";
 // ======================================================
 // PROTECTION DES ROUTES
 // ======================================================
@@ -273,7 +274,7 @@ function AppRoutes() {
           path="/chef/projets"
           element={
             <RoleRoute allowedRoles={["CHEF_CHANTIER"]}>
-              <PlaceholderPage />
+              <ChefProjects />
             </RoleRoute>
           }
         />
