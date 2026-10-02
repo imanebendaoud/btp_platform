@@ -1,8 +1,11 @@
+from django.utils import timezone
 from rest_framework import serializers
+
 from .models import Utilisateur
 
 
 class UtilisateurSerializer(serializers.ModelSerializer):
+
     role = serializers.CharField(
         source="id_role.nom_role",
         read_only=True
@@ -10,6 +13,7 @@ class UtilisateurSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Utilisateur
+
         fields = [
             "id_utilisateur",
             "nom",
@@ -20,6 +24,7 @@ class UtilisateurSerializer(serializers.ModelSerializer):
             "actif",
             "date_creation",
         ]
+
         read_only_fields = [
             "id_utilisateur",
             "date_creation",
@@ -28,6 +33,7 @@ class UtilisateurSerializer(serializers.ModelSerializer):
 
 
 class UtilisateurCreateSerializer(serializers.ModelSerializer):
+
     password = serializers.CharField(
         write_only=True,
         min_length=8
@@ -35,6 +41,7 @@ class UtilisateurCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Utilisateur
+
         fields = [
             "nom",
             "prenom",
@@ -45,10 +52,12 @@ class UtilisateurCreateSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
+
         password = validated_data.pop("password")
 
         user = Utilisateur(
-            **validated_data
+            **validated_data,
+            date_creation=timezone.now(),
         )
 
         user.set_password(password)

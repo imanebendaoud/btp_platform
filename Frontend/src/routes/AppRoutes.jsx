@@ -11,6 +11,9 @@ import ProjectsList from "../pages/admin/projects/ProjectsList";
 import ProjectForm from "../pages/admin/projects/ProjectForm";
 import ProjectDetail from "../pages/admin/projects/ProjectDetail";
 import ChefProjects from "../pages/chefprojet/ChefProjects";
+import UsersList from "../pages/admin/utilisateur/UserList";
+import UserForm from "../pages/admin/utilisateur/UserForm";
+import UserDetail from "../pages/admin/utilisateur/UserDetail";
 // ======================================================
 // PROTECTION DES ROUTES
 // ======================================================
@@ -202,14 +205,41 @@ function AppRoutes() {
             </RoleRoute>
           }
         />
-        <Route
-          path="/admin/utilisateurs"
-          element={
-            <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
-              <PlaceholderPage />
-            </RoleRoute>
-          }
-        />
+        <Route path="/admin/utilisateurs"
+  element={
+    <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+      <UsersList />
+    </RoleRoute>
+  }
+/>
+
+<Route
+  path="/admin/utilisateurs/nouveau"
+  element={
+    <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+      <UserForm />
+    </RoleRoute>
+  }
+/>
+
+<Route
+  path="/admin/utilisateurs/:id"
+  element={
+    <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+      <UserDetail />
+    </RoleRoute>
+  }
+/>
+
+<Route
+  path="/admin/utilisateurs/:id/modifier"
+  element={
+    <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+      <UserForm />
+    </RoleRoute>
+  }
+/>
+
 
         <Route
           path="/admin/stock"

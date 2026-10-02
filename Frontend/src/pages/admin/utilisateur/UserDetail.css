@@ -1,0 +1,296 @@
+.user-detail-page {
+  padding: 30px 34px 40px;
+  max-width: 1100px;
+  color: #1c2420;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.user-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.user-detail-back {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #a45f19;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-detail-back:hover {
+  text-decoration: underline;
+}
+
+.user-detail-eyebrow {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #8b8a82;
+}
+
+.user-detail-header h1 {
+  margin: 0;
+  font-size: 31px;
+}
+
+.user-detail-subtitle {
+  margin: 8px 0 0;
+  color: #77766f;
+  font-size: 14px;
+}
+
+.user-detail-header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.user-detail-btn-primary,
+.user-detail-btn-secondary,
+.user-detail-btn-danger {
+  padding: 11px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.user-detail-btn-primary {
+  border: none;
+  background: #e08a2c;
+  color: #ffffff;
+}
+
+.user-detail-btn-primary:hover {
+  background: #c97720;
+}
+
+.user-detail-btn-secondary {
+  border: 1px solid #d0ccc1;
+  background: #ffffff;
+  color: #4c4b45;
+}
+
+.user-detail-btn-secondary:hover {
+  background: #f3f1eb;
+}
+
+.user-detail-btn-danger {
+  border: none;
+  background: #a6544b;
+  color: #ffffff;
+}
+
+.user-detail-btn-danger:hover {
+  background: #8e453e;
+}
+
+.user-detail-btn-primary:disabled,
+.user-detail-btn-danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.user-detail-status-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid #d8d5c9;
+  border-radius: 9px;
+}
+
+.user-detail-card-label {
+  margin: 0 0 8px;
+  color: #77766f;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.user-detail-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.user-detail-status span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.user-detail-status.active {
+  color: #3c7a4d;
+}
+
+.user-detail-status.active span {
+  background: #3c7a4d;
+}
+
+.user-detail-status.inactive {
+  color: #9b5148;
+}
+
+.user-detail-status.inactive span {
+  background: #9b5148;
+}
+
+.user-detail-status-info {
+  color: #77766f;
+  font-size: 13px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.user-detail-card {
+  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid #d8d5c9;
+  border-radius: 9px;
+}
+
+.user-detail-card-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid #e5e2d9;
+  background: #f8f7f3;
+}
+
+.user-detail-card-header h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.user-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+}
+
+.user-detail-item {
+  padding: 20px 22px;
+  border-bottom: 1px solid #eeece6;
+}
+
+.user-detail-item:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+
+.user-detail-item span {
+  display: block;
+  margin-bottom: 7px;
+  color: #85837a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.user-detail-item strong {
+  color: #1c2420;
+  font-size: 14px;
+}
+
+/* =========================
+   SECURITY
+========================= */
+
+.user-detail-security {
+  padding: 20px 22px;
+}
+
+.user-detail-security strong {
+  font-size: 14px;
+}
+
+.user-detail-security p {
+  margin: 7px 0 0;
+  color: #85837a;
+  font-size: 13px;
+}
+
+/* =========================
+   STATES
+========================= */
+
+.user-detail-loading {
+  padding: 25px;
+  background: #ffffff;
+  border: 1px solid #d8d5c9;
+  border-radius: 9px;
+  color: #77766f;
+}
+
+.user-detail-error {
+  padding: 15px 17px;
+  border: 1px solid #e0c4c0;
+  border-radius: 8px;
+  background: #f8e9e7;
+  color: #91483f;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 750px) {
+  .user-detail-page {
+    padding: 20px;
+  }
+
+  .user-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-detail-status-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-detail-item:nth-last-child(-n + 2) {
+    border-bottom: 1px solid #eeece6;
+  }
+
+  .user-detail-item:last-child {
+    border-bottom: none;
+  }
+
+  .user-detail-header-actions {
+    width: 100%;
+  }
+
+  .user-detail-btn-primary,
+  .user-detail-btn-secondary,
+  .user-detail-btn-danger {
+    flex: 1;
+    text-align: center;
+  }
+}
