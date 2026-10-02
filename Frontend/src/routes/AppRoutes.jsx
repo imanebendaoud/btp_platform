@@ -14,6 +14,11 @@ import ChefProjects from "../pages/chefprojet/ChefProjects";
 import UsersList from "../pages/admin/utilisateur/UserList";
 import UserForm from "../pages/admin/utilisateur/UserForm";
 import UserDetail from "../pages/admin/utilisateur/UserDetail";
+import MateriauxList from "../pages/admin/stock/MateriauxList";
+import MateriauForm from "../pages/admin/stock/MateriauForm";
+import MouvementsList from "../pages/admin/stock/Mouvementslist";
+import MouvementForm from "../pages/admin/stock/Mouvementform";
+
 // ======================================================
 // PROTECTION DES ROUTES
 // ======================================================
@@ -240,15 +245,32 @@ function AppRoutes() {
   }
 />
 
-
         <Route
-          path="/admin/stock"
-          element={
-            <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
-              <PlaceholderPage />
-            </RoleRoute>
-          }
-        />
+  path="/admin/stock"
+  element={
+    <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+      <MateriauxList />
+    </RoleRoute>
+  }
+/>
+<Route
+  path="/admin/stock/materiaux/nouveau"
+  element={
+    <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+      <MateriauForm />
+    </RoleRoute>
+  }
+/>
+<Route
+  path="/admin/stock/materiaux/:id/modifier"
+  element={
+    <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+      <MateriauForm />
+    </RoleRoute>
+  }
+/>
+<Route path="/admin/stock/mouvements" element={<RoleRoute allowedRoles={["ADMINISTRATEUR"]}><MouvementsList /></RoleRoute>} />
+<Route path="/admin/stock/mouvements/nouveau" element={<RoleRoute allowedRoles={["ADMINISTRATEUR"]}><MouvementForm /></RoleRoute>} />
 
         <Route
           path="/admin/finance"
