@@ -21,7 +21,6 @@ class EquipementViewSet(viewsets.ModelViewSet):
     permission_classes = [IsActionAllowed]
 
     action_roles = {
-        # Consulter les équipements
         "list": [
             "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
@@ -32,26 +31,20 @@ class EquipementViewSet(viewsets.ModelViewSet):
             "RESPONSABLE_MAINTENANCE",
         ],
 
-        # Ajouter un équipement
         "create": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
         ],
 
-        # Modifier
         "update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
         ],
 
         "partial_update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
         ],
 
-        # Suppression
         "destroy": [
-            "ADMINISTRATEUR",
+            "RESPONSABLE_MAINTENANCE",
         ],
     }
 
@@ -62,7 +55,6 @@ class AffectationEquipementViewSet(viewsets.ModelViewSet):
     permission_classes = [IsActionAllowed]
 
     action_roles = {
-        # Consulter les affectations
         "list": [
             "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
@@ -73,26 +65,20 @@ class AffectationEquipementViewSet(viewsets.ModelViewSet):
             "RESPONSABLE_MAINTENANCE",
         ],
 
-        # Affecter un équipement
         "create": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
         ],
 
-        # Modifier une affectation
         "update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
         ],
 
         "partial_update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
         ],
 
-        # Suppression
         "destroy": [
-            "ADMINISTRATEUR",
+            "RESPONSABLE_MAINTENANCE",
         ],
     }
 
@@ -103,7 +89,6 @@ class MaintenanceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsActionAllowed]
 
     action_roles = {
-        # Consulter les maintenances
         "list": [
             "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
@@ -114,25 +99,19 @@ class MaintenanceViewSet(viewsets.ModelViewSet):
             "RESPONSABLE_MAINTENANCE",
         ],
 
-        # Déclarer une maintenance
         "create": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
         ],
 
-        # Modifier
         "update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
         ],
 
         "partial_update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_MAINTENANCE",
         ],
 
-        # Suppression
         "destroy": [
-            "ADMINISTRATEUR",
+            "RESPONSABLE_MAINTENANCE",
         ],
     }

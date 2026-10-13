@@ -17,6 +17,7 @@ class BudgetViewSet(viewsets.ModelViewSet):
 
     action_roles = {
 
+        # Consultation
         "list": [
             "ADMINISTRATEUR",
             "RESPONSABLE_FINANCIER",
@@ -27,23 +28,23 @@ class BudgetViewSet(viewsets.ModelViewSet):
             "RESPONSABLE_FINANCIER",
         ],
 
+        # Création : uniquement Finance
         "create": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_FINANCIER",
         ],
 
+        # Modification : uniquement Finance
         "update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_FINANCIER",
         ],
 
         "partial_update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_FINANCIER",
         ],
 
+        # Suppression : uniquement Finance
         "destroy": [
-            "ADMINISTRATEUR",
+            "RESPONSABLE_FINANCIER",
         ],
     }
 
@@ -59,6 +60,7 @@ class DepenseViewSet(viewsets.ModelViewSet):
 
     action_roles = {
 
+        # Consultation
         "list": [
             "ADMINISTRATEUR",
             "RESPONSABLE_FINANCIER",
@@ -69,22 +71,22 @@ class DepenseViewSet(viewsets.ModelViewSet):
             "RESPONSABLE_FINANCIER",
         ],
 
+        # Création : uniquement Finance
         "create": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_FINANCIER",
         ],
 
+        # Modification : uniquement Finance
         "update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_FINANCIER",
         ],
 
         "partial_update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_FINANCIER",
         ],
 
+        # Suppression : uniquement Finance
         "destroy": [
-            "ADMINISTRATEUR",
+            "RESPONSABLE_FINANCIER",
         ],
     }

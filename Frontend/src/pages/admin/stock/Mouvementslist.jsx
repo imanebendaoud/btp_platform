@@ -1,137 +1,278 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getMouvements, getMateriaux } from "../../../services/stockService";
-import { getProjects } from "../../../services/projectsService";
-import "./MouvementsList.css";
 
-const TYPE_LABELS = {
-  ENTREE: "Entrée",
-  SORTIE: "Sortie",
-  AJUSTEMENT: "Ajustement",
-};
+import {
+  getMouvements,
+} from "../../../services/stockService";
+
+import "./Mouvementslist.css";
 
 function MouvementsList() {
   const navigate = useNavigate();
 
   const [mouvements, setMouvements] = useState([]);
-  const [materiaux, setMateriaux] = useState([]);
-  const [projets, setProjets] = useState([]);
+  const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("TOUS");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const [typeFilter, setTypeFilter] = useState("TOUS");
-  const [materiauFilter, setMateriauFilter] = useState("TOUS");
+  // ============================================================
+  // CHARGEMENT
+  // ============================================================
 
-  const loadAll = async () => {
+  const loadMouvements = async () => {
     try {
       setLoading(true);
-      const [mouvementsData, materiauxData, projetsData] = await Promise.all([
-        getMouvements(),
-        getMateriaux(),
-        getProjects(),
-      ]);
-      setMouvements(
-        mouvementsData.sort((a, b) => new Date(b.date_mouvement) - new Date(a.date_mouvement))
-      );
-      setMateriaux(materiauxData);
-      setProjets(projetsData);
       setError("");
+
+      const data = await getMouvements();
+
+      setMouvements(
+        Array.isArray(data)
+          ? data
+          : data.results || data.value || []
+      );
     } catch (err) {
       console.error("Erreur chargement mouvements :", err);
-      setError("Impossible de charger l'historique des mouvements.");
+
+      setError(
+        err.response?.data?.detail ||
+          "Impossible de charger les mouvements."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    loadAll();
+    loadMouvements();
   }, []);
 
-  const materiauNom = (id) => materiaux.find((m) => m.id_materiau === id)?.nom || "—";
-  const projetNom = (id) => projets.find((p) => p.id_projet === id)?.nom || null;
+  // ============================================================
+  // FILTRAGE
+  // ============================================================
 
-  const filtered = mouvements
-    .filter((m) => typeFilter === "TOUS" || m.type_mouvement === typeFilter)
-    .filter((m) => materiauFilter === "TOUS" || String(m.id_materiau) === materiauFilter);
+  const filtered = mouvements.filter((mouvement) => {
 
-  const formatDate = (value) =>
-    value ? new Date(value).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" }) : "—";
+    const text = search.toLowerCase().trim();
+
+    const matchesSearch =
+      String(mouvement.id_mouvement)
+        .toLowerCase()
+        .includes(text) ||
+
+      String(mouvement.id_materiau)
+        .toLowerCase()
+        .includes(text) ||
+
+      String(mouvement.id_projet || "")
+        .toLowerCase()
+        .includes(text) ||
+
+      mouvement.motif
+        ?.toLowerCase()
+        .includes(text);
+
+    const matchesType =
+      typeFilter === "TOUS" ||
+      mouvement.type_mouvement === typeFilter;
+
+    return matchesSearch && matchesType;
+  });
+
+  // ============================================================
+  // AFFICHAGE
+  // ============================================================
 
   return (
-    <div className="mvt-list-page">
+    <div className="mouvements-page">
 
-      <div className="mvt-list-header">
+      <div className="page-header">
+
         <div>
-          <p className="mvt-eyebrow">GESTION DES STOCKS</p>
-          <h1>Mouvements de stock</h1>
-          <p className="mvt-subtitle">{filtered.length} mouvement(s) affiché(s)</p>
+          <h1>
+            Historique des mouvements
+          </h1>
+
+          <p>
+            Consultation des entrées et sorties de matériaux
+          </p>
         </div>
 
-        <button className="mvt-btn-primary" onClick={() => navigate("/admin/stock/mouvements/nouveau")}>
-          + Nouveau mouvement
-        </button>
       </div>
 
-      <div className="mvt-filters">
-        <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className="mvt-select">
-          <option value="TOUS">Tous les types</option>
-          <option value="ENTREE">Entrée</option>
-          <option value="SORTIE">Sortie</option>
-          <option value="AJUSTEMENT">Ajustement</option>
+      {/* FILTRES */}
+
+      <div className="filters-card">
+
+        <input
+          type="text"
+          placeholder="Rechercher..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+        >
+          <option value="TOUS">
+            Tous les mouvements
+          </option>
+
+          <option value="ENTREE">
+            Entrées
+          </option>
+
+          <option value="SORTIE">
+            Sorties
+          </option>
+
+          <option value="AJUSTEMENT">
+            Ajustements
+          </option>
         </select>
 
-        <select value={materiauFilter} onChange={(e) => setMateriauFilter(e.target.value)} className="mvt-select">
-          <option value="TOUS">Tous les matériaux</option>
-          {materiaux.map((m) => (
-            <option key={m.id_materiau} value={m.id_materiau}>{m.nom}</option>
-          ))}
-        </select>
       </div>
 
-      {loading && <p className="mvt-loading">Chargement...</p>}
-      {error && <p className="mvt-error">{error}</p>}
+      {/* ERREUR */}
 
-      {!loading && !error && (
-        <div className="mvt-table-wrap">
-          <table className="mvt-table">
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Matériau</th>
-                <th>Quantité</th>
-                <th>Projet</th>
-                <th>Date</th>
-                <th>Motif</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="mvt-empty">
-                    Aucun mouvement ne correspond à votre recherche.
-                  </td>
-                </tr>
-              ) : (
-                filtered.map((m) => (
-                  <tr key={m.id_mouvement}>
-                    <td>
-                      <span className={`mvt-badge mvt-badge-${m.type_mouvement}`}>
-                        {TYPE_LABELS[m.type_mouvement] || m.type_mouvement}
-                      </span>
-                    </td>
-                    <td className="mvt-strong">{materiauNom(m.id_materiau)}</td>
-                    <td>{Number(m.quantite).toLocaleString("fr-MA")}</td>
-                    <td className="mvt-muted">{projetNom(m.id_projet) || "Stock central"}</td>
-                    <td className="mvt-muted">{formatDate(m.date_mouvement)}</td>
-                    <td className="mvt-muted">{m.motif || "—"}</td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+      {error && (
+        <div className="error-message">
+          {error}
         </div>
       )}
+
+      {/* TABLE */}
+
+      <div className="content-card">
+
+        {loading ? (
+          <p className="message">
+            Chargement...
+          </p>
+        ) : (
+          <div className="table-container">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>ID</th>
+                  <th>MATÉRIAU</th>
+                  <th>PROJET</th>
+                  <th>TYPE</th>
+                  <th>QUANTITÉ</th>
+                  <th>DATE</th>
+                  <th>MOTIF</th>
+                  <th>ACTIONS</th>
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {filtered.length === 0 ? (
+
+                  <tr>
+
+                    <td
+                      colSpan="8"
+                      className="empty"
+                    >
+                      Aucun mouvement trouvé.
+                    </td>
+
+                  </tr>
+
+                ) : (
+
+                  filtered.map((mouvement) => (
+
+                    <tr
+                      key={mouvement.id_mouvement}
+                    >
+
+                      <td>
+                        #{mouvement.id_mouvement}
+                      </td>
+
+                      <td>
+                        #{mouvement.id_materiau}
+                      </td>
+
+                      <td>
+                        {mouvement.id_projet
+                          ? `#${mouvement.id_projet}`
+                          : "-"}
+                      </td>
+
+                      <td>
+
+                        <span
+                          className={`movement-type ${
+                            mouvement.type_mouvement === "ENTREE"
+                              ? "entry"
+                              : mouvement.type_mouvement === "SORTIE"
+                              ? "exit"
+                              : ""
+                          }`}
+                        >
+                          {mouvement.type_mouvement}
+                        </span>
+
+                      </td>
+
+                      <td>
+                        {mouvement.quantite}
+                      </td>
+
+                      <td>
+                        {mouvement.date_mouvement
+                          ? new Date(
+                              mouvement.date_mouvement
+                            ).toLocaleString("fr-FR")
+                          : "-"}
+                      </td>
+
+                      <td>
+                        {mouvement.motif || "-"}
+                      </td>
+
+                      <td>
+
+                        <div className="actions">
+
+                          <button
+                            className="btn-view"
+                            onClick={() =>
+                              navigate(
+                                `/admin/stock/mouvements/${mouvement.id_mouvement}`
+                              )
+                            }
+                          >
+                            Voir
+                          </button>
+
+                        </div>
+
+                      </td>
+
+                    </tr>
+
+                  ))
+
+                )}
+
+              </tbody>
+
+            </table>
+
+          </div>
+        )}
+
+      </div>
 
     </div>
   );

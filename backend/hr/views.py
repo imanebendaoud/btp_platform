@@ -36,22 +36,19 @@ class EmployeViewSet(viewsets.ModelViewSet):
         ],
 
         "create": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_RH",
         ],
 
         "update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_RH",
         ],
 
         "partial_update": [
-            "ADMINISTRATEUR",
             "RESPONSABLE_RH",
         ],
 
         "destroy": [
-            "ADMINISTRATEUR",
+            "RESPONSABLE_RH",
         ],
     }
 

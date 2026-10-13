@@ -1,160 +1,363 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getMateriau, createMateriau, updateMateriau } from "../../../services/stockService";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
+import {
+  createMateriau,
+  getMateriau,
+  updateMateriau,
+} from "../../../services/stockService";
+
 import "./MateriauForm.css";
 
-const EMPTY_FORM = {
-  nom: "",
-  unite: "",
-  stock_actuel: "",
-  stock_minimum: "",
-};
-
 function MateriauForm() {
-  const { id } = useParams();
   const navigate = useNavigate();
-  const isEditing = Boolean(id);
+  const { id } = useParams();
 
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [loading, setLoading] = useState(isEditing);
+  const isEdit = Boolean(id);
+
+  const [formData, setFormData] = useState({
+    nom: "",
+    unite: "",
+    stock_actuel: "",
+    stock_minimum: "",
+  });
+
+  const [loading, setLoading] = useState(isEdit);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (isEditing) {
-      getMateriau(id)
-        .then((data) => {
-          setForm({
-            nom: data.nom || "",
-            unite: data.unite || "",
-            stock_actuel: data.stock_actuel ?? "",
-            stock_minimum: data.stock_minimum ?? "",
-          });
-        })
-        .catch((err) => {
-          console.error("Erreur chargement matériau :", err);
-          setError("Impossible de charger ce matériau.");
-        })
-        .finally(() => setLoading(false));
-    }
-  }, [id, isEditing]);
+  // ============================================================
+  // CHARGER LE MATÉRIAU EN MODE MODIFICATION
+  // ============================================================
 
-  const handleChange = (field) => (e) => {
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+  useEffect(() => {
+    const loadMateriau = async () => {
+      if (!isEdit) {
+        return;
+      }
+
+      try {
+        setLoading(true);
+
+        const data = await getMateriau(id);
+
+        setFormData({
+          nom: data.nom || "",
+          unite: data.unite || "",
+          stock_actuel: data.stock_actuel ?? "",
+          stock_minimum: data.stock_minimum ?? "",
+        });
+      } catch (err) {
+        console.error(
+          "Erreur chargement matériau :",
+          err
+        );
+
+        setError(
+          err.response?.data?.detail ||
+            "Impossible de charger le matériau."
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMateriau();
+  }, [id, isEdit]);
+
+  // ============================================================
+  // CHANGEMENT
+  // ============================================================
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
   };
+
+  // ============================================================
+  // SUBMIT
+  // ============================================================
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setSaving(true);
 
-    const payload = {
-      nom: form.nom,
-      unite: form.unite,
-      stock_actuel: form.stock_actuel || 0,
-      stock_minimum: form.stock_minimum || 0,
-    };
+    setError("");
+
+    if (!formData.nom.trim()) {
+      setError("Le nom du matériau est obligatoire.");
+      return;
+    }
+
+    if (!formData.unite.trim()) {
+      setError("L'unité est obligatoire.");
+      return;
+    }
+
+    if (
+      formData.stock_actuel === "" ||
+      Number(formData.stock_actuel) < 0
+    ) {
+      setError(
+        "Le stock actuel doit être supérieur ou égal à 0."
+      );
+      return;
+    }
+
+    if (
+      formData.stock_minimum === "" ||
+      Number(formData.stock_minimum) < 0
+    ) {
+      setError(
+        "Le stock minimum doit être supérieur ou égal à 0."
+      );
+      return;
+    }
 
     try {
-      if (isEditing) {
-        await updateMateriau(id, payload);
+      setSaving(true);
+
+      const data = {
+        nom: formData.nom.trim(),
+        unite: formData.unite.trim(),
+        stock_actuel: formData.stock_actuel,
+        stock_minimum: formData.stock_minimum,
+      };
+
+      if (isEdit) {
+        await updateMateriau(id, data);
       } else {
-        await createMateriau(payload);
+        await createMateriau(data);
       }
+
       navigate("/admin/stock/materiaux");
     } catch (err) {
-      console.error("Erreur enregistrement matériau :", err);
+      console.error(
+        "Erreur enregistrement matériau :",
+        err
+      );
 
-      if (err.response?.data) {
-        setError(JSON.stringify(err.response.data));
+      const backendError = err.response?.data;
+
+      if (backendError) {
+        setError(
+          typeof backendError === "string"
+            ? backendError
+            : JSON.stringify(backendError)
+        );
       } else {
-        setError("Impossible d'enregistrer ce matériau.");
+        setError(
+          "Impossible d'enregistrer le matériau."
+        );
       }
     } finally {
       setSaving(false);
     }
   };
 
+  // ============================================================
+  // LOADING
+  // ============================================================
+
   if (loading) {
-    return <p className="mat-form-loading">Chargement...</p>;
+    return (
+      <div className="materiau-form-page">
+        <div className="form-loading">
+          Chargement du matériau...
+        </div>
+      </div>
+    );
   }
 
+  // ============================================================
+  // AFFICHAGE
+  // ============================================================
+
   return (
-    <div className="mat-form-page">
+    <div className="materiau-form-page">
 
-      <p className="mat-eyebrow">GESTION DES STOCKS</p>
-      <h1>{isEditing ? "Modifier le matériau" : "Nouveau matériau"}</h1>
+      <div className="form-top">
 
-      <form className="mat-form-card" onSubmit={handleSubmit}>
+        <Link
+          to="/admin/stock/materiaux"
+          className="back-link"
+        >
+          ← Retour aux matériaux
+        </Link>
 
-        <div className="mat-form-grid">
+        <div className="form-title">
 
-          <div className="mat-field mat-field-full">
-            <label>Nom du matériau *</label>
-            <input
-              type="text"
-              value={form.nom}
-              onChange={handleChange("nom")}
-              placeholder="Ciment CPJ 45"
-              required
-            />
-          </div>
+          <div>
+            <div className="page-kicker">
+              GESTION DU STOCK
+            </div>
 
-          <div className="mat-field">
-            <label>Unité *</label>
-            <input
-              type="text"
-              value={form.unite}
-              onChange={handleChange("unite")}
-              placeholder="sac, m3, L..."
-              required
-            />
-          </div>
+            <h1>
+              {isEdit
+                ? "Modifier le matériau"
+                : "Nouveau matériau"}
+            </h1>
 
-          <div className="mat-field">
-            <label>Stock actuel *</label>
-            <input
-              type="number"
-              step="0.001"
-              min="0"
-              value={form.stock_actuel}
-              onChange={handleChange("stock_actuel")}
-              placeholder="0"
-              required
-            />
-          </div>
-
-          <div className="mat-field">
-            <label>Stock minimum *</label>
-            <input
-              type="number"
-              step="0.001"
-              min="0"
-              value={form.stock_minimum}
-              onChange={handleChange("stock_minimum")}
-              placeholder="0"
-              required
-            />
-            <p className="mat-field-hint">
-              Une alerte "Stock faible" s'affichera si le stock actuel descend sous ce seuil.
+            <p>
+              {isEdit
+                ? "Modifier les informations du matériau."
+                : "Ajouter un nouveau matériau au stock."}
             </p>
           </div>
 
         </div>
 
-        {error && <div className="mat-form-error">{error}</div>}
+      </div>
 
-        <div className="mat-form-actions">
-          <button type="button" className="mat-btn-secondary" onClick={() => navigate(-1)}>
+      {error && (
+        <div className="form-error">
+          {error}
+        </div>
+      )}
+
+      <form
+        className="materiau-form"
+        onSubmit={handleSubmit}
+      >
+
+        {/* INFORMATIONS */}
+
+        <div className="form-section">
+
+          <div className="section-title">
+            <h2>Informations du matériau</h2>
+
+            <p>
+              Informations générales concernant le matériau.
+            </p>
+          </div>
+
+          <div className="form-grid">
+
+            <div className="form-group form-group-full">
+              <label htmlFor="nom">
+                Nom du matériau *
+              </label>
+
+              <input
+                id="nom"
+                name="nom"
+                type="text"
+                value={formData.nom}
+                onChange={handleChange}
+                placeholder="Ex. Ciment CPJ 45"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="unite">
+                Unité *
+              </label>
+
+              <input
+                id="unite"
+                name="unite"
+                type="text"
+                value={formData.unite}
+                onChange={handleChange}
+                placeholder="Ex. kg, sac, m³..."
+              />
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* STOCK */}
+
+        <div className="form-section">
+
+          <div className="section-title">
+            <h2>Niveau de stock</h2>
+
+            <p>
+              Définissez le stock actuel et le seuil minimum.
+            </p>
+          </div>
+
+          <div className="form-grid">
+
+            <div className="form-group">
+              <label htmlFor="stock_actuel">
+                Stock actuel *
+              </label>
+
+              <input
+                id="stock_actuel"
+                name="stock_actuel"
+                type="number"
+                min="0"
+                step="0.001"
+                value={formData.stock_actuel}
+                onChange={handleChange}
+                placeholder="0"
+              />
+
+              <small>
+                Quantité actuellement disponible.
+              </small>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="stock_minimum">
+                Stock minimum *
+              </label>
+
+              <input
+                id="stock_minimum"
+                name="stock_minimum"
+                type="number"
+                min="0"
+                step="0.001"
+                value={formData.stock_minimum}
+                onChange={handleChange}
+                placeholder="0"
+              />
+
+              <small>
+                Seuil déclenchant une alerte de stock.
+              </small>
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* ACTIONS */}
+
+        <div className="form-actions">
+
+          <Link
+            to="/admin/stock/materiaux"
+            className="btn-secondary"
+          >
             Annuler
+          </Link>
+
+          <button
+            type="submit"
+            className="btn-primary"
+            disabled={saving}
+          >
+            {saving
+              ? "Enregistrement..."
+              : isEdit
+              ? "Enregistrer les modifications"
+              : "Créer le matériau"}
           </button>
 
-          <button type="submit" className="mat-btn-primary" disabled={saving}>
-            {saving ? "Enregistrement..." : isEditing ? "Enregistrer" : "Créer le matériau"}
-          </button>
         </div>
 
       </form>
+
     </div>
   );
 }

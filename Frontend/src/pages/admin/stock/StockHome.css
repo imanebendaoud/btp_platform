@@ -1,0 +1,79 @@
+.stock-home {
+  padding: 30px;
+}
+
+.stock-home-header {
+  margin-bottom: 30px;
+}
+
+.stock-home-header h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+}
+
+.stock-home-header p {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+}
+
+.stock-sections {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.stock-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  gap: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stock-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.stock-card-icon {
+  font-size: 26px;
+  min-width: 30px;
+}
+
+.stock-card-content {
+  flex: 1;
+}
+
+.stock-card-content h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.stock-card-content p {
+  margin: 0 0 20px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.stock-card-button {
+  border: none;
+  background: #e89506;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.stock-card-button:hover {
+  background: #374151;
+}
+
+@media (max-width: 800px) {
+  .stock-sections {
+    grid-template-columns: 1fr;
+  }
+}
