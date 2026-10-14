@@ -18,3 +18,11 @@ export const getMe = async (accessToken) => {
 
   return response.data;
 };
+
+export const refreshAccessToken = async (refreshToken) => {
+  const response = await api.post("/auth/refresh/", {
+    refresh: refreshToken,
+  });
+
+  return response.data;
+};

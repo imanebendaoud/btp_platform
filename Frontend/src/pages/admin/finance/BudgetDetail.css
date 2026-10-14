@@ -1,0 +1,332 @@
+/* =========================================================
+   PAGE DÉTAIL BUDGET
+   ========================================================= */
+
+.budget-detail-page {
+  min-height: 100vh;
+  padding: 32px;
+
+  background: #f7f8fc;
+  color: #172033;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.budget-detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.budget-detail-header h1 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.budget-detail-header p {
+  margin: 8px 0 0;
+
+  color: #7a8497;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   BOUTON RETOUR
+   ========================================================= */
+
+.budget-detail-page .back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 10px 17px;
+
+  border: 1px solid #e2e6ee;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #344054;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.budget-detail-page .back-button:hover {
+  background: #f8fafc;
+  border-color: #cfd6e2;
+
+  box-shadow: 0 4px 12px rgba(23, 32, 51, 0.06);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ERREUR
+   ========================================================= */
+
+.budget-detail-error {
+  margin-bottom: 20px;
+  padding: 15px 17px;
+
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+
+  background: #fff5f5;
+  color: #b42318;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   PROJET
+   ========================================================= */
+
+.budget-project-card {
+  position: relative;
+
+  margin-bottom: 22px;
+  padding: 23px 25px;
+
+  border: 1px solid #e7eaf0;
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-shadow: 0 5px 20px rgba(23, 32, 51, 0.045);
+
+  overflow: hidden;
+}
+
+.budget-project-card::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 4px;
+  height: 100%;
+
+  background: #344054;
+}
+
+.budget-project-card span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #7a8497;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.budget-project-card strong {
+  display: block;
+
+  color: #172033;
+
+  font-size: 21px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   CATÉGORIES DU BUDGET
+   ========================================================= */
+
+.budget-detail-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   CARTE CATÉGORIE
+   ========================================================= */
+
+.budget-detail-card {
+  position: relative;
+
+  padding: 21px 22px;
+
+  border: 1px solid #e7eaf0;
+  border-radius: 13px;
+
+  background: #ffffff;
+
+  box-shadow: 0 4px 16px rgba(23, 32, 51, 0.04);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.budget-detail-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #d8dde6;
+
+  box-shadow: 0 8px 22px rgba(23, 32, 51, 0.07);
+}
+
+.budget-detail-card::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: #eaecf0;
+}
+
+.budget-detail-card span {
+  display: block;
+
+  margin-bottom: 11px;
+
+  color: #7a8497;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.budget-detail-card strong {
+  display: block;
+
+  color: #172033;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  letter-spacing: -0.2px;
+}
+
+
+/* =========================================================
+   TOTAL
+   ========================================================= */
+
+.budget-total-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 25px;
+
+  margin-top: 24px;
+  padding: 25px 27px;
+
+  border-radius: 14px;
+
+  background: #172033;
+  color: #ffffff;
+
+  box-shadow: 0 8px 25px rgba(23, 32, 51, 0.13);
+}
+
+.budget-total-card span {
+  font-size: 14px;
+  font-weight: 500;
+
+  opacity: 0.75;
+}
+
+.budget-total-card strong {
+  font-size: 27px;
+  font-weight: 700;
+
+  letter-spacing: -0.4px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+  .budget-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+@media (max-width: 800px) {
+  .budget-detail-page {
+    padding: 22px;
+  }
+
+  .budget-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .budget-detail-header h1 {
+    font-size: 26px;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .budget-detail-page {
+    padding: 16px;
+  }
+
+  .budget-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .budget-project-card {
+    padding: 20px;
+  }
+
+  .budget-detail-card {
+    padding: 19px;
+  }
+
+  .budget-total-card {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 9px;
+  }
+
+  .budget-total-card strong {
+    font-size: 24px;
+  }
+}

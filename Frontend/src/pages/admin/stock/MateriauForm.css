@@ -1,107 +1,186 @@
-.mat-form-page {
-  width: 100%;
-  max-width: 600px;
-}
-
-.mat-form-page h1 {
-  margin: 0 0 24px;
+.materiau-form-page {
+  min-height: calc(100vh - 70px);
+  padding: 30px;
+  background: #f4f2ec;
   color: #1c2420;
-  font-size: 26px;
-  font-weight: 700;
 }
 
-.mat-form-loading {
-  color: #77786f;
+.form-top {
+  margin-bottom: 25px;
+}
+
+.back-link {
+  display: inline-block;
+  color: #626862;
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.back-link:hover {
+  color: #e08a2c;
+}
+
+.form-title h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.form-title p {
+  margin-top: 8px;
+  color: #707570;
+  font-size: 14px;
+}
+
+.form-error {
+  background: #fff0ed;
+  border: 1px solid #dfa99f;
+  color: #9b3c2d;
+  padding: 13px 16px;
+  border-radius: 7px;
+  margin-bottom: 18px;
+}
+
+.materiau-form {
+  max-width: 900px;
+}
+
+.form-section {
+  background: white;
+  border: 1px solid #dedbd1;
+  border-radius: 9px;
+  margin-bottom: 18px;
+  padding: 25px;
+}
+
+.section-title {
+  margin-bottom: 22px;
+}
+
+.section-title h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.section-title p {
+  margin: 0;
+  color: #777c77;
   font-size: 13px;
 }
 
-.mat-form-card {
-  background: #ffffff;
-  border: 1px solid #d8d5c9;
-  border-radius: 8px;
-  padding: 28px;
-  box-shadow: 0 3px 12px rgba(28, 36, 32, 0.04);
-}
-
-.mat-form-grid {
+.form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
-.mat-field-full {
+.form-group-full {
   grid-column: 1 / -1;
 }
 
-.mat-field {
+.form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
 }
 
-.mat-field label {
-  font-size: 12px;
-  font-weight: 600;
-  color: #3a392f;
-}
-
-.mat-field input {
-  padding: 10px 12px;
-  border: 1.5px solid #d8d5c9;
-  border-radius: 6px;
-  font-family: inherit;
+.form-group label {
   font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  height: 44px;
+  border: 1px solid #d5d2c8;
+  border-radius: 7px;
+  padding: 0 12px;
+  font-size: 14px;
   color: #1c2420;
   outline: none;
+  background: white;
+  box-sizing: border-box;
 }
 
-.mat-field input:focus {
+.form-group input:focus {
   border-color: #e08a2c;
-  box-shadow: 0 0 0 3px rgba(224, 138, 44, 0.15);
 }
 
-.mat-field-hint {
-  margin: 2px 0 0;
+.form-group small {
+  margin-top: 6px;
+  color: #858a85;
   font-size: 11px;
-  color: #aaa99f;
-  line-height: 1.4;
 }
 
-.mat-form-error {
-  margin-top: 18px;
-  padding: 10px 12px;
-  border-left: 3px solid #b8452f;
-  border-radius: 4px;
-  background: rgba(184, 69, 47, 0.08);
-  color: #a63e2c;
-  font-size: 13px;
-}
-
-.mat-form-actions {
+.form-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 26px;
+  margin-top: 20px;
 }
 
-.mat-btn-secondary {
-  height: 40px;
-  padding: 0 18px;
-  border: 1px solid #d8d5c9;
-  border-radius: 6px;
-  background: #ffffff;
-  color: #3a392f;
-  font-size: 13px;
+.btn-primary,
+.btn-secondary {
+  border-radius: 7px;
+  padding: 12px 18px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
+  text-decoration: none;
 }
 
-.mat-btn-secondary:hover {
+.btn-primary {
+  border: none;
+  background: #e08a2c;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #c8751d;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  border: 1px solid #d2cfc5;
+  background: white;
+  color: #424842;
+}
+
+.btn-secondary:hover {
   background: #f4f2ec;
 }
 
-@media (max-width: 550px) {
-  .mat-form-grid {
+.form-loading {
+  background: white;
+  border: 1px solid #dedbd1;
+  border-radius: 9px;
+  padding: 50px;
+  text-align: center;
+  color: #777c77;
+}
+
+@media (max-width: 700px) {
+  .materiau-form-page {
+    padding: 20px;
+  }
+
+  .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .form-group-full {
+    grid-column: auto;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    text-align: center;
   }
 }

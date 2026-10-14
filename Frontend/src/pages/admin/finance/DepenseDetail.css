@@ -1,0 +1,270 @@
+/* =========================================================
+   PAGE DÉTAIL DÉPENSE
+   ========================================================= */
+
+.depense-detail-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f7f8fc;
+  color: #172033;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.depense-detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.depense-detail-header h1 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.depense-detail-header p {
+  margin: 8px 0 0;
+
+  color: #7a8497;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   BOUTON RETOUR
+   ========================================================= */
+
+.depense-detail-page .back-button {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 10px 17px;
+
+  border: 1px solid #e2e6ee;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #344054;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.depense-detail-page .back-button:hover {
+  background: #f8fafc;
+  border-color: #cfd6e2;
+
+  box-shadow: 0 4px 12px rgba(23, 32, 51, 0.06);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ERREUR
+   ========================================================= */
+
+.depense-detail-error {
+  margin-bottom: 20px;
+  padding: 15px 17px;
+
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+
+  background: #fff5f5;
+  color: #b42318;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   CARTE INFORMATIONS PRINCIPALES
+   ========================================================= */
+
+.depense-detail-card {
+  margin-bottom: 20px;
+  padding: 8px 25px;
+
+  border: 1px solid #e7eaf0;
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-shadow: 0 5px 20px rgba(23, 32, 51, 0.045);
+}
+
+
+/* =========================================================
+   LIGNE INFORMATION
+   ========================================================= */
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  align-items: center;
+
+  gap: 25px;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid #eef0f4;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row span {
+  color: #7a8497;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.detail-row strong {
+  color: #172033;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-align: left;
+}
+
+
+/* =========================================================
+   MONTANT
+   ========================================================= */
+
+.detail-amount {
+  font-size: 23px !important;
+  font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   CARTES TEXTE
+   ========================================================= */
+
+.detail-text-card {
+  margin-bottom: 20px;
+  padding: 23px 25px;
+
+  border: 1px solid #e7eaf0;
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-shadow: 0 5px 20px rgba(23, 32, 51, 0.045);
+}
+
+.detail-text-card h2 {
+  margin: 0 0 14px;
+
+  color: #172033;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.detail-text-card p {
+  margin: 0;
+
+  color: #667085;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  white-space: pre-wrap;
+}
+
+
+/* =========================================================
+   PIÈCE JUSTIFICATIVE
+   ========================================================= */
+
+.no-document {
+  color: #98a2b3 !important;
+}
+
+
+/* =========================================================
+   PETITE AMÉLIORATION VISUELLE POUR LE CONTENU
+   ========================================================= */
+
+.detail-text-card::before {
+  content: "";
+
+  display: block;
+
+  width: 30px;
+  height: 3px;
+
+  margin-bottom: 14px;
+
+  border-radius: 10px;
+
+  background: #d0d5dd;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+  .depense-detail-page {
+    padding: 22px;
+  }
+
+  .depense-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .depense-detail-header h1 {
+    font-size: 26px;
+  }
+
+  .detail-row {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+}
+
+
+@media (max-width: 500px) {
+  .depense-detail-page {
+    padding: 16px;
+  }
+
+  .depense-detail-card,
+  .detail-text-card {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .detail-amount {
+    font-size: 21px !important;
+  }
+}

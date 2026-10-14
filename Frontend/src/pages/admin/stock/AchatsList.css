@@ -1,0 +1,324 @@
+.achats-page {
+  padding: 28px 32px;
+  min-height: 100%;
+  background: #f5f7fa;
+}
+
+/* ======================================================
+   HEADER
+====================================================== */
+
+.page-header {
+  margin-bottom: 20px;
+}
+
+.page-kicker {
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #7b8494;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #f3c009;
+}
+
+.page-header p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+
+/* ======================================================
+   STATISTIQUES
+====================================================== */
+
+.stats-row {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  min-width: 175px;
+  padding: 30px 18px;
+  background: #ffffff;
+  border: 1px solid #e3e7ed;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px rgba(16, 24, 40, 0.03);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+}
+
+.stat-card span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  color: #7b8494;
+}
+
+.stat-card strong {
+  font-size: 18px;
+  font-weight: 700;
+  color: #172033;
+  white-space: nowrap;
+}
+
+
+/* ======================================================
+   ERREUR
+====================================================== */
+
+.error-message {
+  margin-bottom: 18px;
+  padding: 11px 14px;
+  border-radius: 8px;
+  background: #fff1f0;
+  border: 1px solid #fecdca;
+  color: #b42318;
+  font-size: 13px;
+}
+
+
+/* ======================================================
+   CONTENU
+====================================================== */
+
+.content-card {
+  background: #ffffff;
+  border: 1px solid #e3e7ed;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(16, 24, 40, 0.03);
+  overflow: hidden;
+}
+
+
+/* ======================================================
+   TABLE HEADER
+====================================================== */
+
+.table-header {
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.table-header h2 {
+  margin: 0 0 3px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #172033;
+}
+
+.table-header span {
+  font-size: 12px;
+  color: #8a94a6;
+}
+
+.search-input {
+  width: 220px;
+  height: 34px;
+  padding: 0 11px;
+
+  border: 1px solid #d9dee7;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #344054;
+
+  font-size: 12px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #98a2b3;
+}
+
+
+/* ======================================================
+   TABLE
+====================================================== */
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+thead {
+  background: #f8fafc;
+}
+
+th {
+  padding: 11px 12px;
+  text-align: left;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.45px;
+
+  color: #667085;
+
+  border-bottom: 1px solid #e5e9ef;
+}
+
+td {
+  padding: 12px;
+  font-size: 12px;
+  color: #475467;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+tbody tr {
+  transition: background 0.15s ease;
+}
+
+tbody tr:hover {
+  background: #fafbfc;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+td strong {
+  color: #263043;
+  font-weight: 600;
+}
+
+
+/* ======================================================
+   STATUT
+====================================================== */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 4px 8px;
+
+  border-radius: 999px;
+
+  background: #eef2f6;
+  color: #475467;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+/* ======================================================
+   FACTURE
+====================================================== */
+
+.invoice-available {
+  font-size: 15px;
+}
+
+.invoice-missing {
+  color: #98a2b3;
+  font-size: 13px;
+}
+
+
+/* ======================================================
+   BOUTON VOIR
+====================================================== */
+
+.btn-view-icon {
+  width: 30px;
+  height: 30px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #d9dee7;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #475467;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.btn-view-icon:hover {
+  background: #f2f4f7;
+  border-color: #c5ccd6;
+  transform: scale(1.04);
+}
+
+
+/* ======================================================
+   MESSAGES
+====================================================== */
+
+.message {
+  padding: 35px;
+  text-align: center;
+  color: #667085;
+  font-size: 13px;
+}
+
+.empty {
+  padding: 35px;
+  text-align: center;
+  color: #8a94a6;
+  font-size: 13px;
+}
+
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media (max-width: 800px) {
+  .achats-page {
+    padding: 20px;
+  }
+
+  .stats-row {
+    flex-wrap: wrap;
+  }
+
+  .stat-card {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .table-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+}
