@@ -1,0 +1,1246 @@
+.chef-progress-page {
+  min-height: 100vh;
+  padding: 30px;
+  background: #f4f2ec;
+  color: #1c2420;
+}
+
+
+/* ============================================================
+   HEADER
+============================================================ */
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.progress-header h1 {
+  margin: 0 0 8px;
+  color: #1c2420;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.progress-header p {
+  margin: 0;
+  color: #6b6a63;
+  font-size: 15px;
+}
+
+
+/* ============================================================
+   BOUTON AJOUTER
+============================================================ */
+
+.btn-add-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border: 1px solid #d8d5c9;
+  border-radius: 6px;
+
+  padding: 12px 18px;
+
+  background: #ffffff;
+  color: #e08a2c;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 3px 12px rgba(28, 36, 32, 0.04);
+
+  transition:
+    all 0.2s ease;
+}
+
+.btn-add-progress span {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.btn-add-progress svg {
+  flex-shrink: 0;
+}
+
+.btn-add-progress:hover {
+  transform: translateY(-2px);
+
+  border-color: #e08a2c;
+
+  background: #ffffff;
+
+  box-shadow: 0 8px 25px rgba(28, 36, 32, 0.08);
+}
+
+
+/* ============================================================
+   ALERTES
+============================================================ */
+
+.progress-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 13px 16px;
+  margin-bottom: 22px;
+
+  border-radius: 6px;
+
+  font-size: 14px;
+}
+
+.progress-alert p {
+  flex: 1;
+  margin: 0;
+}
+
+.progress-alert button {
+  border: none;
+  background: transparent;
+
+  color: inherit;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+.progress-alert-error {
+  background: rgba(184, 69, 47, 0.06);
+  border: 1px solid rgba(184, 69, 47, 0.18);
+  color: #b8452f;
+}
+
+.progress-alert-success {
+  background: rgba(102, 120, 94, 0.08);
+  border: 1px solid rgba(102, 120, 94, 0.18);
+  color: #66785e;
+}
+
+
+/* ============================================================
+   STATISTIQUES
+============================================================ */
+
+.progress-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
+
+  margin-bottom: 25px;
+}
+
+.progress-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #d8d5c9;
+  border-radius: 8px;
+
+  box-shadow: 0 3px 12px rgba(28, 36, 32, 0.04);
+
+  transition: all 0.2s ease;
+}
+
+.progress-stat-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 25px rgba(28, 36, 32, 0.08);
+}
+
+
+/* ============================================================
+   ICONES STATISTIQUES
+============================================================ */
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 7px;
+
+  background: rgba(224, 138, 44, 0.12);
+  color: #e08a2c;
+
+  font-size: 21px;
+}
+
+.stat-icon svg {
+  width: 21px;
+  height: 21px;
+
+  flex-shrink: 0;
+}
+
+
+/* Anciennes classes conservées
+   pour éviter un problème si elles sont encore présentes dans JSX */
+
+.stat-icon-blue,
+.stat-icon-purple,
+.stat-icon-green,
+.stat-icon-yellow {
+  background: rgba(224, 138, 44, 0.12);
+  color: #e08a2c;
+}
+
+
+.progress-stat-card span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #6b6a63;
+
+  font-size: 13px;
+}
+
+.progress-stat-card strong {
+  display: block;
+
+  color: #1c2420;
+
+  font-size: 24px;
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   TOOLBAR
+============================================================ */
+
+.progress-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  gap: 20px;
+
+  margin-bottom: 22px;
+  padding: 18px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #d8d5c9;
+  border-radius: 8px;
+
+  box-shadow: 0 3px 12px rgba(28, 36, 32, 0.04);
+}
+
+.progress-filter {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  min-width: 300px;
+}
+
+.progress-filter label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #3a392f;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.progress-filter label svg {
+  flex-shrink: 0;
+  color: #e08a2c;
+}
+
+.progress-filter select {
+  height: 42px;
+
+  padding: 0 13px;
+
+  border: 1px solid #d8d5c9;
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #1c2420;
+
+  font-size: 14px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.progress-filter select:focus {
+  border-color: #e08a2c;
+
+  box-shadow:
+    0 0 0 3px rgba(224, 138, 44, 0.10);
+}
+
+.progress-count {
+  color: #6b6a63;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+/* ============================================================
+   FORMULAIRE
+============================================================ */
+
+.progress-form-card {
+  margin-bottom: 25px;
+
+  padding: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #d8d5c9;
+  border-radius: 8px;
+
+  box-shadow: 0 3px 12px rgba(28, 36, 32, 0.04);
+}
+
+.progress-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+
+  border-bottom: 1px solid #eeeae1;
+}
+
+.progress-form-header h2 {
+  margin: 0 0 6px;
+
+  color: #1c2420;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.progress-form-header p {
+  margin: 0;
+
+  color: #77786f;
+
+  font-size: 13px;
+}
+
+.close-form-btn {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d8d5c9;
+  border-radius: 6px;
+
+  background: #f4f2ec;
+  color: #6b6a63;
+
+  font-size: 23px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.close-form-btn:hover {
+  background: #eeeae1;
+  color: #1c2420;
+}
+
+.close-form-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* ============================================================
+   FORM GROUPS
+============================================================ */
+
+.progress-form-card form {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.form-group label {
+  color: #3a392f;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group label span {
+  color: #b8452f;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d8d5c9;
+  border-radius: 6px;
+
+  background: #ffffff;
+  color: #1c2420;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input,
+.form-group select {
+  height: 44px;
+
+  padding: 0 13px;
+}
+
+.form-group textarea {
+  padding: 12px 13px;
+
+  resize: vertical;
+
+  min-height: 105px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #e08a2c;
+
+  box-shadow:
+    0 0 0 3px rgba(224, 138, 44, 0.10);
+}
+
+.form-group input:disabled,
+.form-group select:disabled,
+.form-group textarea:disabled {
+  background: #f4f2ec;
+
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   POURCENTAGE
+============================================================ */
+
+.percentage-input-wrapper {
+  position: relative;
+}
+
+.percentage-input-wrapper input {
+  padding-right: 45px;
+}
+
+.percentage-input-wrapper span {
+  position: absolute;
+
+  right: 14px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #6b6a63;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   PREVIEW
+============================================================ */
+
+.progress-preview {
+  grid-column: 1 / -1;
+
+  padding: 16px;
+
+  background: #f4f2ec;
+
+  border: 1px solid #d8d5c9;
+  border-radius: 6px;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 10px;
+}
+
+.preview-header span {
+  color: #6b6a63;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.preview-header strong {
+  color: #e08a2c;
+
+  font-size: 16px;
+}
+
+.preview-bar {
+  width: 100%;
+  height: 9px;
+
+  overflow: hidden;
+
+  background: #eeeae1;
+
+  border-radius: 999px;
+}
+
+.preview-bar-fill {
+  height: 100%;
+
+  background: #e08a2c;
+
+  border-radius: inherit;
+
+  transition: width 0.3s ease;
+}
+
+
+/* ============================================================
+   COMMENTAIRE FORMULAIRE
+============================================================ */
+
+.progress-form-card .form-group:has(textarea) {
+  grid-column: 1 / -1;
+}
+
+
+/* ============================================================
+   ACTIONS FORMULAIRE
+============================================================ */
+
+.progress-form-actions {
+  grid-column: 1 / -1;
+
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 12px;
+
+  padding-top: 5px;
+}
+
+.btn-cancel-progress,
+.btn-save-progress {
+  min-width: 120px;
+  height: 42px;
+
+  padding: 0 18px;
+
+  border-radius: 6px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.btn-cancel-progress {
+  border: 1px solid #d8d5c9;
+
+  background: #ffffff;
+
+  color: #6b6a63;
+}
+
+.btn-cancel-progress:hover {
+  background: #f4f2ec;
+}
+
+.btn-save-progress {
+  border: none;
+
+  background: #e08a2c;
+
+  color: #1c2420;
+
+  box-shadow:
+    0 3px 12px rgba(224, 138, 44, 0.18);
+}
+
+.btn-save-progress:hover {
+  background: #d27e24;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 16px rgba(28, 36, 32, 0.08);
+}
+
+.btn-save-progress:disabled,
+.btn-cancel-progress:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* ============================================================
+   SECTION LISTE
+============================================================ */
+
+.progress-list-section {
+  margin-top: 25px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+.section-title h2 {
+  margin: 0 0 6px;
+
+  color: #1c2420;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.section-title p {
+  margin: 0;
+
+  color: #77786f;
+
+  font-size: 13px;
+}
+
+
+/* ============================================================
+   CARTES AVANCEMENT
+============================================================ */
+
+.progress-cards {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.progress-card {
+  padding: 21px;
+
+  background: #ffffff;
+
+  border: 1px solid #d8d5c9;
+  border-radius: 8px;
+
+  box-shadow:
+    0 3px 12px rgba(28, 36, 32, 0.04);
+
+  transition: all 0.2s ease;
+}
+
+.progress-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 25px rgba(28, 36, 32, 0.08);
+}
+
+
+/* ============================================================
+   HEADER CARTE
+============================================================ */
+
+.progress-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 15px;
+
+  margin-bottom: 22px;
+}
+
+.project-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #aaa99f;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.6px;
+}
+
+.progress-card-header h3 {
+  margin: 0;
+
+  color: #1c2420;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.progress-card-header small {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #77786f;
+
+  font-size: 12px;
+}
+
+
+/* ============================================================
+   ACTIONS CARTE
+============================================================ */
+
+.progress-card-actions {
+  display: flex;
+
+  gap: 7px;
+}
+
+.btn-edit-progress,
+.btn-delete-progress {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  transition: all 0.2s ease;
+}
+
+
+/* -------------------------
+   MODIFIER = ORANGE
+------------------------- */
+
+.btn-edit-progress {
+  border: 1px solid rgba(224, 138, 44, 0.20);
+
+  background: rgba(224, 138, 44, 0.08);
+
+  color: #e08a2c;
+}
+
+.btn-edit-progress:hover {
+  background: rgba(224, 138, 44, 0.15);
+
+  border-color: rgba(224, 138, 44, 0.30);
+
+  transform: translateY(-1px);
+}
+
+.btn-edit-progress svg {
+  color: #e08a2c;
+}
+
+
+/* -------------------------
+   SUPPRIMER = ROUGE
+------------------------- */
+
+.btn-delete-progress {
+  border: 1px solid rgba(184, 69, 47, 0.18);
+
+  background: rgba(184, 69, 47, 0.06);
+
+  color: #b8452f;
+}
+
+.btn-delete-progress:hover {
+  background: rgba(184, 69, 47, 0.12);
+
+  border-color: rgba(184, 69, 47, 0.28);
+
+  color: #a63d29;
+
+  transform: translateY(-1px);
+}
+
+.btn-delete-progress svg {
+  color: #b8452f;
+}
+
+
+/* ============================================================
+   AVANCEMENT PRINCIPAL
+============================================================ */
+
+.progress-card-progress {
+  margin-bottom: 20px;
+}
+
+.progress-percentage-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 9px;
+}
+
+.progress-percentage-row span {
+  color: #6b6a63;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.progress-percentage-row strong {
+  color: #e08a2c;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.main-progress-bar {
+  width: 100%;
+  height: 10px;
+
+  overflow: hidden;
+
+  background: #eeeae1;
+
+  border-radius: 999px;
+}
+
+.main-progress-fill {
+  height: 100%;
+
+  background: #e08a2c;
+
+  border-radius: inherit;
+
+  transition: width 0.4s ease;
+}
+
+
+/* ============================================================
+   COMMENTAIRE
+============================================================ */
+
+.progress-comment {
+  margin-bottom: 18px;
+
+  padding: 13px 14px;
+
+  background: #f4f2ec;
+
+  border-left: 3px solid #e08a2c;
+
+  border-radius: 6px;
+}
+
+.progress-comment span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 5px;
+
+  color: #6b6a63;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+.progress-comment span svg {
+  color: #e08a2c;
+
+  flex-shrink: 0;
+}
+
+.progress-comment p {
+  margin: 0;
+
+  color: #3a392f;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+/* ============================================================
+   FOOTER
+============================================================ */
+
+.progress-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-top: 14px;
+
+  border-top: 1px solid #eeeae1;
+}
+
+.progress-card-footer span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #aaa99f;
+
+  font-size: 12px;
+}
+
+.progress-card-footer span svg {
+  color: #e08a2c;
+
+  flex-shrink: 0;
+}
+
+.progress-card-footer strong {
+  color: #6b6a63;
+
+  font-size: 12px;
+}
+
+
+/* ============================================================
+   EMPTY STATE
+============================================================ */
+
+.progress-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 300px;
+
+  padding: 35px;
+
+  background: #ffffff;
+
+  border: 1px solid #d8d5c9;
+  border-radius: 8px;
+
+  text-align: center;
+
+  box-shadow:
+    0 3px 12px rgba(28, 36, 32, 0.04);
+}
+
+.empty-icon {
+  width: 65px;
+  height: 65px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 15px;
+
+  border-radius: 7px;
+
+  background: rgba(224, 138, 44, 0.12);
+
+  color: #e08a2c;
+
+  font-size: 28px;
+}
+
+.empty-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.progress-empty h3 {
+  margin: 0 0 8px;
+
+  color: #1c2420;
+
+  font-size: 18px;
+}
+
+.progress-empty p {
+  max-width: 420px;
+
+  margin: 0 0 20px;
+
+  color: #77786f;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.btn-empty-add {
+  border: 1px solid #d8d5c9;
+
+  padding: 10px 16px;
+
+  border-radius: 6px;
+
+  background: #f4f2ec;
+
+  color: #e08a2c;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.btn-empty-add:hover {
+  background: rgba(224, 138, 44, 0.12);
+
+  transform: translateY(-1px);
+}
+
+
+/* ============================================================
+   LOADING
+============================================================ */
+
+.progress-loading {
+  min-height: 70vh;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+}
+
+.progress-loading p {
+  margin: 0;
+
+  color: #6b6a63;
+
+  font-size: 14px;
+}
+
+.progress-spinner {
+  width: 38px;
+  height: 38px;
+
+  border: 4px solid #eeeae1;
+
+  border-top-color: #e08a2c;
+
+  border-radius: 50%;
+
+  animation: progress-spin 0.8s linear infinite;
+}
+
+@keyframes progress-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE TABLETTE
+============================================================ */
+
+@media (max-width: 1100px) {
+  .progress-stats {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .progress-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE TABLETTE PETITE
+============================================================ */
+
+@media (max-width: 800px) {
+  .chef-progress-page {
+    padding: 22px;
+  }
+
+  .progress-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .btn-add-progress {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+  .progress-toolbar {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .progress-filter {
+    min-width: 0;
+
+    width: 100%;
+  }
+
+  .progress-count {
+    align-self: flex-start;
+  }
+
+  .progress-form-card form {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-preview,
+  .progress-form-actions,
+  .progress-form-card .form-group:has(textarea) {
+    grid-column: 1;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE MOBILE
+============================================================ */
+
+@media (max-width: 600px) {
+  .chef-progress-page {
+    padding: 16px;
+  }
+
+  .progress-header h1 {
+    font-size: 24px;
+  }
+
+  .progress-header p {
+    font-size: 13px;
+  }
+
+  .progress-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-stat-card {
+    padding: 16px;
+  }
+
+  .progress-form-card {
+    padding: 18px;
+  }
+
+  .progress-card {
+    padding: 17px;
+  }
+
+  .progress-card-header {
+    flex-direction: column;
+  }
+
+  .progress-card-actions {
+    align-self: flex-end;
+  }
+
+  .progress-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .btn-cancel-progress,
+  .btn-save-progress {
+    width: 100%;
+  }
+
+  .progress-alert {
+    align-items: flex-start;
+  }
+}
+

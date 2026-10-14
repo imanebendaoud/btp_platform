@@ -1,0 +1,746 @@
+/* =========================================================
+   PAGE PHOTOS DU CHEF DE CHANTIER
+========================================================= */
+
+.chef-photos-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f4f2ec;
+  color: #1c2420;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.chef-photos-loading {
+  padding: 60px 20px;
+  text-align: center;
+  color: #1c4b38;
+  font-size: 16px;
+}
+
+/* =========================================================
+   EN-TÊTE
+========================================================= */
+
+.chef-photos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.chef-photos-header h1 {
+  margin: 0 0 10px;
+  color: #1c2420;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.chef-photos-header p {
+  max-width: 700px;
+  margin: 0;
+  color: #747970;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   MESSAGES
+========================================================= */
+
+.chef-photos-alert {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: 9px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.chef-photos-error {
+  background: #fbe9e7;
+  color: #a42e25;
+  border: 1px solid #f2c9c5;
+}
+
+.chef-photos-success {
+  background: #e6f3e9;
+  color: #1c6638;
+  border: 1px solid #c7e5ce;
+}
+
+/* =========================================================
+   CARTES PRINCIPALES
+========================================================= */
+
+.chef-photos-form-section,
+.chef-photos-gallery-section {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 26px;
+  margin-bottom: 24px;
+  background: #ffffff;
+  border: 1px solid #e9e5db;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(28, 36, 32, 0.05);
+}
+
+.chef-photos-form-section h2,
+.chef-photos-gallery-header h2 {
+  margin: 0;
+  color: #1c2420;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   FORMULAIRE
+========================================================= */
+
+.chef-photos-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 24px;
+}
+
+.chef-photos-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.chef-photos-field label {
+  color: #343d36;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.chef-photos-field input,
+.chef-photos-field select,
+.chef-photos-field textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #dedfd7;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #1c2420;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chef-photos-field input:focus,
+.chef-photos-field select:focus,
+.chef-photos-field textarea:focus {
+  border-color: #b66c1d;
+  box-shadow: 0 0 0 3px rgba(182, 108, 29, 0.12);
+}
+
+.chef-photos-field input[type="file"] {
+  padding: 10px;
+  background: #faf9f5;
+  cursor: pointer;
+}
+
+.chef-photos-field input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #e8eee8;
+  color: #1c4b38;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chef-photos-field input[type="file"]::file-selector-button:hover {
+  background: #dce7dc;
+}
+
+.chef-photos-field textarea {
+  min-height: 100px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.chef-photos-field input::placeholder,
+.chef-photos-field textarea::placeholder {
+  color: #9a9e97;
+}
+
+.chef-photos-field small {
+  color: #747970;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   APERÇU DE LA PHOTO AVANT L'ENVOI
+========================================================= */
+
+.chef-photos-preview {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding: 18px;
+  background: #faf9f5;
+  border: 1px dashed #d8d8ca;
+  border-radius: 12px;
+}
+
+.chef-photos-preview p {
+  margin: 0 0 14px;
+  color: #4d554f;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.chef-photos-preview strong {
+  color: #1c4b38;
+}
+
+.chef-photos-preview img {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid #e9e5db;
+}
+
+/* =========================================================
+   BOUTON D'AJOUT
+========================================================= */
+
+.chef-photos-submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 9px;
+  background: #1c4b38;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.chef-photos-submit:hover:not(:disabled) {
+  background: #153a2b;
+  transform: translateY(-1px);
+}
+
+.chef-photos-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   EN-TÊTE DE LA GALERIE
+========================================================= */
+
+.chef-photos-gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.chef-photos-gallery-header span {
+  display: inline-block;
+  padding: 8px 13px;
+  border: 1px solid #dce7dc;
+  border-radius: 20px;
+  background: #edf2ec;
+  color: #1c4b38;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   GRILLE DES PHOTOS
+========================================================= */
+
+.chef-photos-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+
+.chef-photos-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e9e5db;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(28, 36, 32, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chef-photos-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 24px rgba(28, 36, 32, 0.1);
+}
+
+/* =========================================================
+   CONTENEUR DE LA MINIATURE
+========================================================= */
+
+.chef-photos-image-container {
+  position: relative;
+  width: 100%;
+  min-height: 220px;
+  overflow: hidden;
+  background: #eceee8;
+}
+
+/* Bouton qui contient l'image */
+
+.chef-photos-image-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 220px;
+  padding: 0;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+  text-align: left;
+}
+
+.chef-photos-image-button:focus-visible {
+  outline: 3px solid #b66c1d;
+  outline-offset: -3px;
+}
+
+/* Miniature */
+
+.chef-photos-card-image {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  background: #eceee8;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.chef-photos-image-button:hover .chef-photos-card-image {
+  transform: scale(1.045);
+  filter: brightness(0.88);
+}
+
+/* Indication pour agrandir */
+
+.chef-photos-zoom-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(28, 36, 32, 0.85);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.chef-photos-image-button:hover .chef-photos-zoom-hint,
+.chef-photos-image-button:focus-visible .chef-photos-zoom-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   BOUTON SUPPRIMER
+========================================================= */
+
+.chef-photos-delete-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: #c93636;
+  color: #ffffff;
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.chef-photos-delete-button:hover:not(:disabled) {
+  background: #a82020;
+  transform: scale(1.07);
+}
+
+.chef-photos-delete-button:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.chef-photos-delete-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+/* =========================================================
+   IMAGE INDISPONIBLE
+========================================================= */
+
+.chef-photos-image-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 220px;
+  box-sizing: border-box;
+  padding: 16px;
+  background: #eceee8;
+  color: #747970;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* =========================================================
+   CONTENU DES CARTES
+========================================================= */
+
+.chef-photos-card-content {
+  padding: 18px;
+}
+
+.chef-photos-card-content h3 {
+  margin: 0 0 12px;
+  color: #1c4b38;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.chef-photos-card-content p {
+  min-height: 20px;
+  margin: 0 0 14px;
+  color: #4d554f;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.chef-photos-card-content small {
+  display: block;
+  padding-top: 10px;
+  border-top: 1px solid #f0eee7;
+  color: #858a83;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   GALERIE VIDE
+========================================================= */
+
+.chef-photos-empty {
+  padding: 38px 16px;
+  border: 1px dashed #d8d8ca;
+  border-radius: 12px;
+  background: #faf9f5;
+  color: #747970;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* =========================================================
+   MODALE : PHOTO EN GRAND
+========================================================= */
+
+.chef-photos-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 65px 28px 28px;
+  background: rgba(12, 16, 14, 0.92);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  animation: chefPhotosModalFade 0.2s ease;
+}
+
+/* Zone principale de la fenêtre */
+
+.chef-photos-modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Image en taille maximale sans déformation */
+
+.chef-photos-modal-content img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 145px);
+  object-fit: contain;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: #202522;
+  box-shadow: 0 12px 45px rgba(0, 0, 0, 0.35);
+}
+
+/* Description sous la grande image */
+
+.chef-photos-modal-content p {
+  max-width: 850px;
+  max-height: 80px;
+  margin: 0;
+  overflow-y: auto;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* Bouton de fermeture */
+
+.chef-photos-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0 0 3px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.chef-photos-modal-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(90deg);
+}
+
+.chef-photos-modal-close:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+@keyframes chefPhotosModalFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE : TABLETTES
+========================================================= */
+
+@media (max-width: 1000px) {
+  .chef-photos-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .chef-photos-page {
+    padding: 24px;
+  }
+
+  .chef-photos-form-section,
+  .chef-photos-gallery-section {
+    padding: 22px;
+  }
+
+  .chef-photos-gallery {
+    gap: 18px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE : TÉLÉPHONES
+========================================================= */
+
+@media (max-width: 600px) {
+  .chef-photos-page {
+    padding: 16px;
+  }
+
+  .chef-photos-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .chef-photos-header h1 {
+    font-size: 25px;
+  }
+
+  .chef-photos-header p {
+    font-size: 13px;
+  }
+
+  .chef-photos-form-section,
+  .chef-photos-gallery-section {
+    padding: 18px;
+    margin-bottom: 18px;
+    border-radius: 13px;
+  }
+
+  .chef-photos-form-section h2,
+  .chef-photos-gallery-header h2 {
+    font-size: 18px;
+  }
+
+  .chef-photos-form {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .chef-photos-preview {
+    grid-column: auto;
+    padding: 12px;
+  }
+
+  .chef-photos-preview img {
+    max-height: 230px;
+  }
+
+  .chef-photos-submit {
+    grid-column: auto;
+    width: 100%;
+  }
+
+  .chef-photos-gallery-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .chef-photos-gallery {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .chef-photos-image-container,
+  .chef-photos-image-button,
+  .chef-photos-card-image,
+  .chef-photos-image-placeholder {
+    min-height: 230px;
+    height: 230px;
+  }
+
+  /* Sur téléphone, l'indication reste visible */
+  .chef-photos-zoom-hint {
+    opacity: 1;
+    transform: none;
+  }
+
+  .chef-photos-card-content {
+    padding: 15px;
+  }
+
+  .chef-photos-modal {
+    padding: 66px 10px 18px;
+  }
+
+  .chef-photos-modal-content img {
+    max-width: 100%;
+    max-height: calc(100vh - 145px);
+  }
+
+  .chef-photos-modal-close {
+    top: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* =========================================================
+   PETITS ÉCRANS
+========================================================= */
+
+@media (max-width: 360px) {
+  .chef-photos-page {
+    padding: 12px;
+  }
+
+  .chef-photos-form-section,
+  .chef-photos-gallery-section {
+    padding: 14px;
+  }
+
+  .chef-photos-header h1 {
+    font-size: 22px;
+  }
+
+  .chef-photos-image-container,
+  .chef-photos-image-button,
+  .chef-photos-card-image,
+  .chef-photos-image-placeholder {
+    min-height: 190px;
+    height: 190px;
+  }
+
+  .chef-photos-modal {
+    padding-right: 7px;
+    padding-left: 7px;
+  }
+}

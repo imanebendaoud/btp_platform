@@ -12,6 +12,7 @@ class Projet(models.Model):
     date_debut = models.DateField(blank=True, null=True)
     date_fin_prevue = models.DateField(blank=True, null=True)
     budget_initial = models.DecimalField(max_digits=15, decimal_places=2)
+
     id_chef_projet = models.ForeignKey(
         Utilisateur,
         on_delete=models.DO_NOTHING,
@@ -19,6 +20,7 @@ class Projet(models.Model):
         blank=True,
         null=True,
     )
+
     statut = models.CharField(max_length=30)
 
     class Meta:
@@ -31,11 +33,13 @@ class Projet(models.Model):
 
 class Tache(models.Model):
     id_tache = models.BigAutoField(primary_key=True)
+
     id_projet = models.ForeignKey(
         Projet,
         on_delete=models.CASCADE,
         db_column="id_projet",
     )
+
     titre = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     date_debut = models.DateField(blank=True, null=True)
@@ -54,11 +58,13 @@ class Tache(models.Model):
 
 class Avancement(models.Model):
     id_avancement = models.BigAutoField(primary_key=True)
+
     id_projet = models.ForeignKey(
         Projet,
         on_delete=models.CASCADE,
         db_column="id_projet",
     )
+
     pourcentage = models.DecimalField(max_digits=5, decimal_places=2)
     date_avancement = models.DateField()
     commentaire = models.TextField(blank=True, null=True)
@@ -73,16 +79,19 @@ class Avancement(models.Model):
 
 class RapportChantier(models.Model):
     id_rapport = models.BigAutoField(primary_key=True)
+
     id_projet = models.ForeignKey(
         Projet,
         on_delete=models.CASCADE,
         db_column="id_projet",
     )
+
     id_utilisateur = models.ForeignKey(
         Utilisateur,
         on_delete=models.DO_NOTHING,
         db_column="id_utilisateur",
     )
+
     titre = models.CharField(max_length=255)
     type_rapport = models.CharField(max_length=100, blank=True, null=True)
     contenu = models.TextField(blank=True, null=True)
@@ -98,14 +107,20 @@ class RapportChantier(models.Model):
 
 class Photo(models.Model):
     id_photo = models.BigAutoField(primary_key=True)
+
     id_projet = models.ForeignKey(
         Projet,
         on_delete=models.CASCADE,
         db_column="id_projet",
     )
-    chemin_photo = models.TextField()
+
+    chemin_photo = models.ImageField(
+        upload_to="photos/",
+        db_column="chemin_photo",
+    )
+
     description = models.TextField(blank=True, null=True)
-    date_ajout = models.DateTimeField()
+    date_ajout = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         managed = False
@@ -117,19 +132,31 @@ class Photo(models.Model):
 
 class Document(models.Model):
     id_document = models.BigAutoField(primary_key=True)
+
     id_projet = models.ForeignKey(
         Projet,
         on_delete=models.CASCADE,
         db_column="id_projet",
     )
+
     id_utilisateur = models.ForeignKey(
         Utilisateur,
         on_delete=models.DO_NOTHING,
         db_column="id_utilisateur",
     )
+
     nom_document = models.CharField(max_length=255)
-    type_document = models.CharField(max_length=100, blank=True, null=True)
-    chemin_fichier = models.TextField()
+    type_document = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+
+    chemin_fichier = models.FileField(
+        upload_to="documents/",
+        db_column="chemin_fichier",
+    )
+
     date_ajout = models.DateTimeField()
 
     class Meta:
@@ -142,11 +169,13 @@ class Document(models.Model):
 
 class Notification(models.Model):
     id_notification = models.BigAutoField(primary_key=True)
+
     id_utilisateur = models.ForeignKey(
         Utilisateur,
         on_delete=models.DO_NOTHING,
         db_column="id_utilisateur",
     )
+
     id_projet = models.ForeignKey(
         Projet,
         on_delete=models.DO_NOTHING,
@@ -154,6 +183,7 @@ class Notification(models.Model):
         blank=True,
         null=True,
     )
+
     type = models.CharField(max_length=100, blank=True, null=True)
     titre = models.CharField(max_length=255)
     message = models.TextField()
