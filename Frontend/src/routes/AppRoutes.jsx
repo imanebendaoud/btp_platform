@@ -160,6 +160,7 @@ import MTMaintenanceForm from "../pages/maintenance/MTMaintenanceForm";
 import MTDemandesList from "../pages/maintenance/MTDemandesList";
 import MTDemandeDetail from "../pages/maintenance/MTDemandeDetail";
 import MTDemandeForm from "../pages/maintenance/MTDemandeForm";
+import AssistantPage from "../pages/admin/assistant/AssistantPage";
 // ======================================================
 // PROTECTION DES ROUTES
 // ======================================================
@@ -1203,6 +1204,14 @@ function AppRoutes() {
 
   }
 
+/>
+        <Route
+  path="/admin/assistant"
+  element={
+    <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+      <AssistantPage />
+    </RoleRoute>
+  }
 />
 
         {/* ==================================================
