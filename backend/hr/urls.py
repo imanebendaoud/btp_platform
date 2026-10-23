@@ -8,14 +8,12 @@ from .views import (
     PointageViewSet,
 )
 
-
 router = DefaultRouter()
 
-router.register(r"employes", EmployeViewSet)
-router.register(r"affectations", AffectationEmployeViewSet)
-router.register(r"contrats", ContratViewSet)
-router.register(r"conges-absences", CongeAbsenceViewSet)
-router.register(r"pointages", PointageViewSet)
-
+router.register(r"employes", EmployeViewSet, basename="employe")
+router.register(r"affectations", AffectationEmployeViewSet, basename="affectation")
+router.register(r"contrats", ContratViewSet, basename="contrat")
+router.register(r"conges-absences", CongeAbsenceViewSet, basename="conge-absence")
+router.register(r"pointages", PointageViewSet, basename="pointage")
 
 urlpatterns = router.urls
