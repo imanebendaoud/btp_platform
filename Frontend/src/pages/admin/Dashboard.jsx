@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { getDashboardSummary } from "../../services/dashboardService";
+import api from "../../services/api";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -35,6 +37,55 @@ function Dashboard() {
 
     loadDashboard();
   }, []);
+
+  const [notifications, setNotifications] = useState([]);
+  const [notifLoading, setNotifLoading] = useState(true);
+
+  useEffect(() => {
+    const loadNotifications = async () => {
+      try {
+        const response = await api.get("/projects/notifications/");
+        const list = Array.isArray(response.data)
+          ? response.data
+          : response.data?.results || [];
+
+        setNotifications(
+          [...list].sort(
+            (a, b) =>
+              new Date(b.date_creation || 0) - new Date(a.date_creation || 0)
+          )
+        );
+      } catch (err) {
+        console.error("Erreur chargement notifications dashboard :", err);
+      } finally {
+        setNotifLoading(false);
+      }
+    };
+
+    loadNotifications();
+  }, []);
+
+  const unreadNotifications = notifications.filter((n) => !n.lue).length;
+  const recentNotifications = notifications.slice(0, 5);
+
+  const getNotifIcon = (type) => {
+    const value = String(type || "").toUpperCase();
+    if (value.includes("STOCK")) return "📦";
+    if (value.includes("FINANCE")) return "€";
+    if (value.includes("MAINTENANCE")) return "🔧";
+    if (value.includes("RH")) return "👤";
+    return "🔔";
+  };
+
+  const formatNotifDate = (date) => {
+    if (!date) return "Date inconnue";
+    const parsed = new Date(date);
+    if (Number.isNaN(parsed.getTime())) return "Date inconnue";
+    return parsed.toLocaleString("fr-FR", {
+      dateStyle: "short",
+      timeStyle: "short",
+    });
+  };
 
   const formatMoney = (value) => {
     return new Intl.NumberFormat("fr-MA", {
@@ -561,6 +612,73 @@ function Dashboard() {
               </strong>
             </div>
 
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          NOTIFICATIONS
+      ===================================================== */}
+
+      <section className="admin-notifications-section">
+
+        <div className="admin-card">
+
+          <div className="admin-card-header">
+
+            <div>
+              <h2>Notifications récentes</h2>
+              <p>Alertes stock, finance, maintenance et RH</p>
+            </div>
+
+            {unreadNotifications > 0 && (
+              <span className="admin-alert-number">
+                {unreadNotifications}
+              </span>
+            )}
+
+          </div>
+
+          <div className="admin-notifications-list">
+
+            {notifLoading ? (
+              <div className="admin-empty">Chargement...</div>
+            ) : recentNotifications.length === 0 ? (
+              <div className="admin-empty">
+                Aucune notification pour le moment.
+              </div>
+            ) : (
+              recentNotifications.map((n) => (
+                <div
+                  key={n.id_notification}
+                  className={
+                    "admin-notification-item" + (!n.lue ? " unread" : "")
+                  }
+                >
+                  <div className="admin-notification-icon">
+                    {getNotifIcon(n.type)}
+                  </div>
+
+                  <div className="admin-notification-body">
+                    <strong>{n.titre}</strong>
+                    <p>{n.message}</p>
+                    <time>{formatNotifDate(n.date_creation)}</time>
+                  </div>
+
+                  {!n.lue && <span className="admin-notification-dot"></span>}
+                </div>
+              ))
+            )}
+
+          </div>
+
+          <div className="admin-notifications-footer">
+            <Link to="/admin/notifications">
+              Voir toutes les notifications →
+            </Link>
           </div>
 
         </div>

@@ -1,0 +1,182 @@
+.rh-conge-detail-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f4f2ec;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.rh-conge-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.rh-conge-detail-eyebrow {
+  margin: 0 0 7px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #e08a2c;
+}
+
+.rh-conge-detail-header h1 { margin: 0; font-size: 26px; color: #1c2420; font-weight: 700; }
+.rh-conge-detail-subtitle { margin: 6px 0 0; color: #6b6a63; font-size: 14px; }
+
+.rh-conge-detail-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.rh-conge-back-button,
+.rh-conge-edit-button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #d8d5c9;
+  color: #1c2420;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: 0.15s;
+}
+
+.rh-conge-back-button:hover,
+.rh-conge-edit-button:hover { border-color: #e08a2c; color: #e08a2c; }
+
+.rh-conge-delete-button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #e2b3a6;
+  background: #fbeae6;
+  color: #8a3321;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.rh-conge-delete-button:hover { background: #f6d9d1; }
+.rh-conge-delete-button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.rh-conge-detail-badges { margin-bottom: 18px; }
+
+.rh-conge-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.rh-conge-badge.attente { background: #f3ddc3; color: #b46b20; }
+.rh-conge-badge.valide { background: #dcebe1; color: #4d7659; }
+.rh-conge-badge.refuse { background: #f6d9d1; color: #b8452f; }
+
+.rh-conge-decision-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.rh-conge-validate-large,
+.rh-conge-refuse-large {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.rh-conge-validate-large {
+  border: 1px solid #a8c7b2;
+  background: #dcebe1;
+  color: #4d7659;
+}
+
+.rh-conge-validate-large:hover { background: #cde3d6; }
+
+.rh-conge-refuse-large {
+  border: 1px solid #e2b3a6;
+  background: #fbeae6;
+  color: #8a3321;
+}
+
+.rh-conge-refuse-large:hover { background: #f6d9d1; }
+
+.rh-conge-validate-large:disabled,
+.rh-conge-refuse-large:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.rh-conge-detail-card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background: #ffffff;
+  border: 1px solid #d8d5c9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(28, 36, 32, 0.04);
+  margin-bottom: 20px;
+}
+
+.rh-conge-info { padding: 20px 22px; border-bottom: 1px solid #eceae2; }
+.rh-conge-info:nth-child(odd) { border-right: 1px solid #eceae2; }
+
+.rh-conge-info span {
+  display: block;
+  margin-bottom: 7px;
+  color: #77786f;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.rh-conge-info strong { color: #1c2420; font-size: 15px; font-weight: 600; }
+
+.rh-conge-motif-card {
+  background: #ffffff;
+  border: 1px solid #d8d5c9;
+  border-radius: 8px;
+  padding: 22px;
+  box-shadow: 0 3px 12px rgba(28, 36, 32, 0.04);
+}
+
+.rh-conge-motif-card h2 { margin: 0 0 12px; font-size: 16px; color: #1c2420; }
+.rh-conge-motif-card p { margin: 0; color: #3a3a35; font-size: 14px; line-height: 1.7; white-space: pre-wrap; }
+
+.rh-conge-detail-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 100px 0;
+  color: #6b6a63;
+  font-size: 14px;
+}
+
+.rh-conge-detail-loader {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #d8d5c9;
+  border-top-color: #e08a2c;
+  border-radius: 50%;
+  animation: rh-conge-spin 0.8s linear infinite;
+}
+
+@keyframes rh-conge-spin { to { transform: rotate(360deg); } }
+
+.rh-conge-detail-error {
+  margin-bottom: 20px;
+  padding: 15px 18px;
+  border-radius: 8px;
+  background: #fbeae6;
+  border: 1px solid #e2b3a6;
+  color: #8a3321;
+}
+
+@media (max-width: 700px) {
+  .rh-conge-detail-page { padding: 20px; }
+  .rh-conge-detail-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+  .rh-conge-detail-card { grid-template-columns: 1fr; }
+  .rh-conge-info:nth-child(odd) { border-right: none; }
+}
