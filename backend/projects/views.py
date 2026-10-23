@@ -48,7 +48,7 @@ from users.permissions import (
     check_project_access,
 )
 
-
+from rest_framework.response import Response
 # ============================================================
 # PROJETS
 # ============================================================
@@ -60,8 +60,8 @@ class ProjetViewSet(viewsets.ModelViewSet):
     permission_classes = [IsActionAllowed, IsOwnProject]
 
     action_roles = {
-        "list": ["ADMINISTRATEUR", "CHEF_CHANTIER", "RESPONSABLE_FINANCIER"],
-        "retrieve": ["ADMINISTRATEUR", "CHEF_CHANTIER", "RESPONSABLE_FINANCIER"],
+        "list": ["ADMINISTRATEUR", "CHEF_CHANTIER", "RESPONSABLE_FINANCIER", "RESPONSABLE_MAINTENANCE", "RESPONSABLE_RH"],
+        "retrieve": ["ADMINISTRATEUR", "CHEF_CHANTIER", "RESPONSABLE_FINANCIER", "RESPONSABLE_MAINTENANCE", "RESPONSABLE_RH"],
         "create": ["ADMINISTRATEUR", "CHEF_CHANTIER"],
         "update": ["ADMINISTRATEUR", "CHEF_CHANTIER"],
         "partial_update": ["ADMINISTRATEUR", "CHEF_CHANTIER"],
@@ -72,9 +72,13 @@ class ProjetViewSet(viewsets.ModelViewSet):
         user = self.request.user
         role = user.id_role.nom_role
 
-        if role in ["ADMINISTRATEUR", "RESPONSABLE_FINANCIER"]:
+        if role in [
+            "ADMINISTRATEUR",
+            "RESPONSABLE_FINANCIER",
+            "RESPONSABLE_MAINTENANCE",
+            "RESPONSABLE_RH",
+        ]:
             return Projet.objects.all()
-
         if role == "CHEF_CHANTIER":
             return Projet.objects.filter(
                 id_chef_projet_id=user.id_utilisateur
@@ -674,7 +678,6 @@ class DocumentViewSet(viewsets.ModelViewSet):
 # ============================================================
 # NOTIFICATIONS
 # ============================================================
-
 class NotificationViewSet(viewsets.ModelViewSet):
 
     queryset = Notification.objects.all()
@@ -698,17 +701,45 @@ class NotificationViewSet(viewsets.ModelViewSet):
         ],
         "create": ["ADMINISTRATEUR"],
         "update": ["ADMINISTRATEUR"],
-        "partial_update": ["ADMINISTRATEUR"],
+        "partial_update": [
+            "ADMINISTRATEUR",
+            "CHEF_CHANTIER",
+            "RESPONSABLE_FINANCIER",
+            "RESPONSABLE_MAINTENANCE",
+            "RESPONSABLE_RH",
+        ],
         "destroy": ["ADMINISTRATEUR"],
     }
 
     def get_queryset(self):
-        user = self.request.user
-        role = user.id_role.nom_role
-
-        if role == "ADMINISTRATEUR":
-            return Notification.objects.all()
-
+        # Chacun ne voit (et ne modifie) que ses propres notifications,
+        # administrateur compris.
         return Notification.objects.filter(
-            id_utilisateur_id=user.id_utilisateur
+            id_utilisateur_id=self.request.user.id_utilisateur
         )
+
+    def list(self, request, *args, **kwargs):
+        # Génère les rappels du jour pour le responsable maintenance
+        if request.user.id_role.nom_role == "RESPONSABLE_MAINTENANCE":
+            try:
+                from maintenance.rappels import generer_rappels
+                generer_rappels(request.user)
+            except Exception as exc:
+                print("Erreur rappels maintenance :", exc)
+        return super().list(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        # get_object() ne trouve que les notifications de l'utilisateur
+        # (404 sinon), donc personne ne peut toucher celles d'un autre.
+        notification = self.get_object()
+
+        # Seul le champ « lue » peut être modifié
+        serializer = self.get_serializer(
+            notification,
+            data={"lue": request.data.get("lue", True)},
+            partial=True,
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data)

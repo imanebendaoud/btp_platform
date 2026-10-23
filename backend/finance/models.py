@@ -1,6 +1,6 @@
 from django.db import models
 from projects.models import Projet
-
+from django.conf import settings
 
 class Budget(models.Model):
     id_budget = models.BigAutoField(primary_key=True)
@@ -45,3 +45,68 @@ class Depense(models.Model):
 
     def __str__(self):
         return f"{self.categorie} - {self.montant}"
+class DemandeFinancement(models.Model):
+    id_demande = models.BigAutoField(primary_key=True)
+    id_equipement = models.ForeignKey(
+        "maintenance.Equipement",
+        on_delete=models.CASCADE,
+        db_column="id_equipement",
+        db_constraint=False,
+    )
+    id_maintenance = models.ForeignKey(
+        "maintenance.Maintenance",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        db_column="id_maintenance",
+        db_constraint=False,
+    )
+    id_projet = models.ForeignKey(
+        Projet,
+        on_delete=models.CASCADE,
+        db_column="id_projet",
+        db_constraint=False,
+    )
+    motif = models.CharField(max_length=40)
+    montant_demande = models.DecimalField(max_digits=15, decimal_places=2)
+    montant_accorde = models.DecimalField(
+        max_digits=15, decimal_places=2, null=True, blank=True
+    )
+    urgence = models.CharField(max_length=20, default="NORMALE")
+    justification = models.TextField()
+    statut = models.CharField(max_length=20, default="EN_ATTENTE")
+    commentaire_decision = models.TextField(null=True, blank=True)
+    id_demandeur = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        db_column="id_demandeur",
+        db_constraint=False,
+        related_name="+",
+    )
+    id_decideur = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        db_column="id_decideur",
+        db_constraint=False,
+        related_name="+",
+    )
+    id_depense = models.ForeignKey(
+        Depense,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        db_column="id_depense",
+        db_constraint=False,
+        related_name="+",
+    )
+    date_demande = models.DateTimeField()
+    date_decision = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        managed = False
+        db_table = "demandes_financement"
+
+    def __str__(self):
+        return f"Demande #{self.id_demande} - {self.montant_demande}"

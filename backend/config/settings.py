@@ -47,13 +47,17 @@ INSTALLED_APPS = [
     'stock',
     'finance',
     'hr',
-    'maintenance',]
+    'maintenance',
+    'assistant',]
 AUTH_USER_MODEL = "users.Utilisateur"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    "DEFAULT_THROTTLE_RATES": {
+        "assistant": "30/hour",
+    },
 }
 
 SIMPLE_JWT = {
@@ -156,3 +160,6 @@ MAILERS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
+LLM_API_KEY = os.getenv("LLM_API_KEY")
+LLM_BASE_URL = os.getenv("LLM_BASE_URL")
+LLM_MODEL = os.getenv("LLM_MODEL")
