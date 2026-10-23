@@ -147,4 +147,7 @@ class DemandeEquipementSerializer(serializers.ModelSerializer):
         if chef is None:
             return ""
 
+
         return f"{chef.prenom} {chef.nom}".strip()
+
+

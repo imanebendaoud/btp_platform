@@ -225,4 +225,7 @@ class PointageViewSet(viewsets.ModelViewSet):
         "update": ["ADMINISTRATEUR", "RESPONSABLE_RH"],
         "partial_update": ["ADMINISTRATEUR", "RESPONSABLE_RH"],
         "destroy": ["ADMINISTRATEUR"],
+
     }
+
+

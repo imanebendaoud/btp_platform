@@ -16,3 +16,5 @@ node_modules/
 
 backend/media/
 backend/photos/
+
+*.dump

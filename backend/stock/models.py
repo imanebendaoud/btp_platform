@@ -95,3 +95,45 @@ class MouvementStock(models.Model):
 
     def __str__(self):
         return f"{self.type_mouvement} - {self.quantite}"
+
+
+class DemandeMateriau(models.Model):
+    id_demande = models.BigAutoField(primary_key=True)
+
+    id_chef = models.ForeignKey(
+        "users.Utilisateur",
+        on_delete=models.DO_NOTHING,
+        db_column="id_chef",
+        related_name="demandes_materiaux",
+    )
+
+    id_projet = models.ForeignKey(
+        "projects.Projet",
+        on_delete=models.DO_NOTHING,
+        db_column="id_projet",
+        related_name="demandes_materiaux",
+    )
+
+    id_materiau = models.ForeignKey(
+        "stock.Materiau",
+        on_delete=models.DO_NOTHING,
+        db_column="id_materiau",
+        related_name="demandes_materiaux",
+    )
+
+    quantite = models.DecimalField(max_digits=15, decimal_places=3)
+    date_besoin = models.DateField()
+    motif = models.TextField(blank=True, null=True)
+    priorite = models.CharField(max_length=20, default="NORMALE")
+    statut = models.CharField(max_length=30, default="EN_ATTENTE")
+    commentaire_decision = models.TextField(blank=True, null=True)
+    date_creation = models.DateTimeField(auto_now_add=False)
+    date_traitement = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = "demandes_materiaux"
+
+    def __str__(self):
+        return f"Demande #{self.id_demande} - {self.statut}"
+    

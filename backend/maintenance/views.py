@@ -489,4 +489,7 @@ class DemandeEquipementViewSet(viewsets.ModelViewSet):
         return Response(
             self.get_serializer(demande).data,
             status=status.HTTP_200_OK,
+
         )
+
+
