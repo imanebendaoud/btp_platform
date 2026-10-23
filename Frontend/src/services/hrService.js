@@ -34,6 +34,7 @@ export const getEmployes = () => request("/employes/");
 export const getAffectationsEmployes = () => request("/affectations/");
 export const getContrats = () => request("/contrats/");
 export const getCongesAbsences = () => request("/conges-absences/");
+
 export const getPointages = () => request("/pointages/");
 
 export const getEmploye = (id) => request(`/employes/${id}/`);

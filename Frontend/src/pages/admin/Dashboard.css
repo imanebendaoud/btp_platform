@@ -454,6 +454,102 @@
 
 
 /* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+.admin-notifications-section {
+  margin-bottom: 20px;
+}
+
+.admin-notifications-list {
+  padding: 6px 19px 4px;
+}
+
+.admin-notification-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid #eeeae1;
+}
+
+.admin-notification-item:last-child {
+  border-bottom: none;
+}
+
+.admin-notification-item.unread {
+  background: #fffaf3;
+  margin: 0 -19px;
+  padding: 13px 19px;
+}
+
+.admin-notification-icon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 7px;
+  background: rgba(224, 138, 44, 0.12);
+  color: #b46b20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.admin-notification-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-notification-body strong {
+  display: block;
+  color: #1c2420;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.admin-notification-body p {
+  margin: 0 0 5px;
+  color: #6b6a63;
+  font-size: 11.5px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.admin-notification-body time {
+  color: #aaa99f;
+  font-size: 10px;
+}
+
+.admin-notification-dot {
+  width: 7px;
+  height: 7px;
+  min-width: 7px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: #e08a2c;
+}
+
+.admin-notifications-footer {
+  padding: 12px 19px;
+  border-top: 1px solid #eeeae1;
+  text-align: center;
+}
+
+.admin-notifications-footer a {
+  color: #e08a2c;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-notifications-footer a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
    AI
    ========================================================= */
 

@@ -3,14 +3,20 @@ import logging
 from datetime import date
 
 from django.conf import settings
-from openai import OpenAI, OpenAIError, RateLimitError
+from openai import (
+    APITimeoutError,
+    InternalServerError,
+    OpenAI,
+    OpenAIError,
+    RateLimitError,
+)
 
 from .tools import TOOL_DEFINITIONS, execute_tool
 
 logger = logging.getLogger("assistant")
 
 MAX_ITERATIONS = 6
-MAX_TOKENS = 1200
+MAX_TOKENS = 4000
 
 SYSTEM_PROMPT = """Tu es l'assistant IA d'une plateforme de gestion de chantiers BTP \
 (BOUSSAKSOU DE CONSTRUCTION). Tu t'adresses à l'administrateur.
@@ -40,7 +46,19 @@ def _client():
         api_key=settings.LLM_API_KEY,
         base_url=settings.LLM_BASE_URL,
         timeout=60,
+        max_retries=0,  # on gère nous-mêmes les nouvelles tentatives (modèles de secours)
     )
+
+
+def _modeles():
+    """Modèle principal, puis modèles de secours."""
+    principal = settings.LLM_MODEL
+    secours = [
+        m.strip()
+        for m in (getattr(settings, "LLM_FALLBACK_MODELS", "") or "").split(",")
+        if m.strip()
+    ]
+    return [principal] + [m for m in secours if m != principal]
 
 
 def _tools_openai():
@@ -58,6 +76,40 @@ def _tools_openai():
     ]
 
 
+def _appeler_modele(client, messages, tools):
+    """
+    Appelle le modèle principal ; en cas de saturation (503), de délai dépassé
+    ou de quota, essaie le modèle de secours suivant.
+    """
+    derniere_erreur = None
+    for modele in _modeles():
+        try:
+            return client.chat.completions.create(
+                model=modele,
+                messages=messages,
+                tools=tools,
+                tool_choice="auto",
+                max_tokens=MAX_TOKENS,
+                temperature=0.2,
+            )
+        except (InternalServerError, APITimeoutError, RateLimitError) as exc:
+            logger.warning("Modèle %s indisponible (%s), essai suivant", modele, type(exc).__name__)
+            derniere_erreur = exc
+        except OpenAIError as exc:
+            logger.exception("Erreur API assistant (modèle %s)", modele)
+            raise AssistantError(
+                "Le service d'IA a renvoyé une erreur. Vérifiez la clé et le nom du modèle."
+            ) from exc
+
+    if isinstance(derniere_erreur, RateLimitError):
+        raise AssistantError(
+            "Limite du fournisseur gratuit atteinte. Patientez une minute puis réessayez."
+        ) from derniere_erreur
+    raise AssistantError(
+        "Le service d'IA est surchargé en ce moment. Réessayez dans quelques instants."
+    ) from derniere_erreur
+
+
 def run_agent(history):
     """
     history : liste [{"role": "user"|"assistant", "content": str}, ...]
@@ -72,25 +124,7 @@ def run_agent(history):
     tokens_out = 0
 
     for _ in range(MAX_ITERATIONS):
-        try:
-            response = client.chat.completions.create(
-                model=settings.LLM_MODEL,
-                messages=messages,
-                tools=tools,
-                tool_choice="auto",
-                max_tokens=MAX_TOKENS,
-                temperature=0.2,
-            )
-        except RateLimitError as exc:
-            logger.warning("Limite du fournisseur atteinte : %s", exc)
-            raise AssistantError(
-                "Limite du fournisseur gratuit atteinte. Patientez une minute puis réessayez."
-            ) from exc
-        except OpenAIError as exc:
-            logger.exception("Erreur API assistant")
-            raise AssistantError(
-                "Le service d'IA est momentanément indisponible. Vérifiez la clé et le nom du modèle."
-            ) from exc
+        response = _appeler_modele(client, messages, tools)
 
         if response.usage:
             tokens_in += response.usage.prompt_tokens or 0
@@ -108,24 +142,32 @@ def run_agent(history):
             }
 
         # Le modèle demande des outils : on mémorise sa demande...
+                # Le modèle demande des outils : on mémorise sa demande...
+        # Les modèles Gemini 3 joignent une « signature de raisonnement » à chaque
+        # appel d'outil (extra_content) : il faut la renvoyer telle quelle.
+        appels = []
+        for tc in message.tool_calls:
+            entree = {
+                "id": tc.id,
+                "type": "function",
+                "function": {
+                    "name": tc.function.name,
+                    "arguments": tc.function.arguments,
+                },
+            }
+            extra = (getattr(tc, "model_extra", None) or {}).get("extra_content")
+            if extra:
+                entree["extra_content"] = extra
+            appels.append(entree)
+
         messages.append(
             {
                 "role": "assistant",
                 "content": message.content or "",
-                "tool_calls": [
-                    {
-                        "id": tc.id,
-                        "type": "function",
-                        "function": {
-                            "name": tc.function.name,
-                            "arguments": tc.function.arguments,
-                        },
-                    }
-                    for tc in message.tool_calls
-                ],
+                "tool_calls": appels,
             }
         )
-
+       
         # ... puis on les exécute et on lui renvoie les résultats
         for tc in message.tool_calls:
             try:

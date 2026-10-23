@@ -1,0 +1,249 @@
+.bell-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.bell-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #d8d5c9;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.bell-button:hover {
+  border-color: #e08a2c;
+  background: #fdf7ee;
+}
+
+.bell-icon {
+  font-size: 19px;
+}
+
+.bell-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: #b8452f;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.bell-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  border: 0;
+  background: transparent;
+  cursor: default;
+}
+
+.bell-panel {
+  position: fixed;
+  top: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1002;
+  width: min(380px, calc(100vw - 24px));
+  max-height: min(520px, 75vh);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #d8d5c9;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(28, 36, 32, 0.16);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.bell-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid #d8d5c9;
+  background: #f4f2ec;
+}
+
+.bell-panel-header h3 {
+  margin: 0 0 3px;
+  font-size: 16px;
+  color: #1c2420;
+}
+
+.bell-panel-header p {
+  margin: 0;
+  font-size: 12px;
+  color: #6b6a63;
+}
+
+.bell-close {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1c2420;
+  font-size: 20px;
+  cursor: pointer;
+  border: 1px solid #d8d5c9;
+}
+
+.bell-close:hover {
+  border-color: #e08a2c;
+  color: #e08a2c;
+}
+
+.bell-list {
+  overflow-y: auto;
+}
+
+.bell-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #eceae2;
+  align-items: flex-start;
+}
+
+.bell-item-unread {
+  background: #fffaf3;
+}
+
+.bell-item-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4e3cd;
+  font-size: 15px;
+}
+
+.bell-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.bell-item-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.bell-item-type {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #b46b20;
+}
+
+.bell-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e08a2c;
+}
+
+.bell-item-title {
+  display: block;
+  font-size: 13.5px;
+  color: #1c2420;
+  margin-bottom: 3px;
+}
+
+.bell-item-message {
+  margin: 0 0 6px;
+  font-size: 12.5px;
+  color: #4a4a44;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.bell-item-date {
+  font-size: 11px;
+  color: #9a9a90;
+}
+
+.bell-mark-read {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  border-radius: 7px;
+  border: 1px solid #d8d5c9;
+  background: #ffffff;
+  color: #4d7659;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.bell-mark-read:hover {
+  background: #dcebe1;
+  border-color: #4d7659;
+}
+
+.bell-status {
+  padding: 30px 18px;
+  text-align: center;
+  color: #6b6a63;
+  font-size: 13px;
+}
+
+.bell-status-error {
+  color: #8a3321;
+}
+
+.bell-status-error button {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border: 1px solid #d8d5c9;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.bell-panel-footer {
+  padding: 12px 18px;
+  border-top: 1px solid #d8d5c9;
+  text-align: center;
+}
+
+.bell-panel-footer a {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e08a2c;
+  text-decoration: none;
+}
+
+.bell-panel-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .bell-panel {
+    position: fixed;
+    top: 70px;
+    right: 12px;
+    max-height: calc(100vh - 90px);
+  }
+}

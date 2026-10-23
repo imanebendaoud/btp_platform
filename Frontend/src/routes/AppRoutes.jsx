@@ -57,13 +57,10 @@ import FournisseurDetail from "../pages/admin/stock/FournisseurDetail";
 // ======================================================
 
 import AchatsList from "../pages/admin/stock/AchatsList";
-
 import AchatForm from "../pages/admin/stock/AchatForm";
 
 // ======================================================
-
 // STOCK - MOUVEMENTS
-
 // ======================================================
 
 import MouvementsList from "../pages/admin/stock/Mouvementslist";
@@ -89,6 +86,9 @@ import ChefProgress from "../pages/chefprojet/ChefProgress";
 import ChefReports from "../pages/chefprojet/ChefReports";
 import ChefPhotos from "../pages/chefprojet/ChefPhotos";
 import ChefDocuments from "../pages/chefprojet/ChefDocuments";
+import ChefEquipe from "../pages/chefprojet/ChefEquipe";
+import ChefEquipements from "../pages/chefprojet/ChefEquipements";
+import ChefStock from "../pages/chefprojet/ChefStock";
 
 import FinanceDashboard from "../pages/admin/finance/FinanceDashboard";
 
@@ -135,47 +135,52 @@ import PointageDetail from "../pages/admin/RH/PointageDetail";
 import RapportsList from "../pages/admin/rapports/RapportsList";
 
 import RapportDetail from "../pages/admin/rapports/RapportDetail";
-
+import NotificationsPage from "../pages/admin/notifications/NotificationsPage";
+import RHDashboard from "../pages/rh/RHDashboard";
+import RHEmployesList from "../pages/rh/EmployesList";
+import RHEmployeDetail from "../pages/rh/EmployeDetail";
+import RHEmployeForm from "../pages/rh/EmployeForm";
+import RHContratsList from "../pages/rh/ContratsList";
+import RHContratDetail from "../pages/rh/ContratDetail";
+import RHContratForm from "../pages/rh/ContratForm";
+import RHCongesList from "../pages/rh/CongesList";
+import RHCongeDetail from "../pages/rh/CongeDetail";
+import RHCongeForm from "../pages/rh/CongeForm";
+import RHPointagesList from "../pages/rh/PointagesList";
+import RHPointageDetail from "../pages/rh/PointageDetail";
+import RHPointageForm from "../pages/rh/PointageForm";
+import MTDashboard from "../pages/maintenance/MTDashboard";
+import MTEquipementsList from "../pages/maintenance/MTEquipementsList";
+import MTEquipementDetail from "../pages/maintenance/MTEquipementDetail";
+import MTEquipementForm from "../pages/maintenance/MTEquipementForm";
+import MTAffectationsList from "../pages/maintenance/MTAffectationsList";
+import MTAffectationForm from "../pages/maintenance/MTAffectationForm";
+import MTMaintenancesList from "../pages/maintenance/MTMaintenancesList";
+import MTMaintenanceForm from "../pages/maintenance/MTMaintenanceForm";
+import MTDemandesList from "../pages/maintenance/MTDemandesList";
+import MTDemandeDetail from "../pages/maintenance/MTDemandeDetail";
+import MTDemandeForm from "../pages/maintenance/MTDemandeForm";
+import AssistantPage from "../pages/admin/assistant/AssistantPage";
 // ======================================================
-
 // PROTECTION DES ROUTES
-
 // ======================================================
 
 function ProtectedRoute({ children }) {
-
   const { isAuthenticated, loading } = useAuth();
-
   if (loading) {
-
     return (
-
       <div
-
         style={{
-
           minHeight: "100vh",
-
           display: "flex",
-
           alignItems: "center",
-
           justifyContent: "center",
-
           background: "#eef1f4",
-
           color: "#536273",
-
           fontFamily: "Arial, sans-serif",
-
-        }}
-
-      >
-
+        }}>
         Vérification de la session...
-
       </div>
-
     );
 
   }
@@ -293,9 +298,7 @@ function RoleRedirect() {
       return <Navigate to="/login" replace />;
 
   }
-
 }
-
 // ======================================================
 
 // ROUTES
@@ -354,8 +357,11 @@ function AppRoutes() {
 
         }
 
-      >
-
+      > 
+         {/* NOTIFICATIONS */}
+        <Route path="/admin/notifications" element={<NotificationsPage />}
+        />
+        
         {/* ==================================================
 
             ADMINISTRATEUR
@@ -1199,6 +1205,14 @@ function AppRoutes() {
   }
 
 />
+        <Route
+  path="/admin/assistant"
+  element={
+    <RoleRoute allowedRoles={["ADMINISTRATEUR"]}>
+      <AssistantPage />
+    </RoleRoute>
+  }
+/>
 
         {/* ==================================================
 
@@ -1282,7 +1296,7 @@ function AppRoutes() {
 
             <RoleRoute allowedRoles={["CHEF_CHANTIER"]}>
 
-              <PlaceholderPage />
+              <ChefEquipe />
 
             </RoleRoute>
 
@@ -1298,7 +1312,7 @@ function AppRoutes() {
 
             <RoleRoute allowedRoles={["CHEF_CHANTIER"]}>
 
-              <PlaceholderPage />
+              <ChefStock />
 
             </RoleRoute>
 
@@ -1314,7 +1328,7 @@ function AppRoutes() {
 
             <RoleRoute allowedRoles={["CHEF_CHANTIER"]}>
 
-              <PlaceholderPage />
+              <ChefEquipements />
 
             </RoleRoute>
 
@@ -1472,172 +1486,89 @@ function AppRoutes() {
             RESPONSABLE MAINTENANCE
 
         ================================================== */}
-
-        <Route
-
-          path="/maintenance/dashboard"
-
-          element={
-
-            <RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}>
-
-              <PlaceholderPage />
-
-            </RoleRoute>
-
-          }
-
-        />
-
-        <Route
-
-          path="/maintenance/equipements"
-
-          element={
-
-            <RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}>
-
-              <PlaceholderPage />
-
-            </RoleRoute>
-
-          }
-
-        />
-
-        <Route
-
-          path="/maintenance/pannes"
-
-          element={
-
-            <RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}>
-
-              <PlaceholderPage />
-
-            </RoleRoute>
-
-          }
-
-        />
-
-        <Route
-
-          path="/maintenance/interventions"
-
-          element={
-
-            <RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}>
-
-              <PlaceholderPage />
-
-            </RoleRoute>
-
-          }
-
-        />
-
-        <Route
-
-          path="/maintenance/demandes"
-
-          element={
-
-            <RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}>
-
-              <PlaceholderPage />
-
-            </RoleRoute>
-
-          }
-
-        />
-
+        {/* RESPONSABLE MAINTENANCE */}
+        <Route path="/maintenance/dashboard" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTDashboard /></RoleRoute>} />
+        <Route path="/maintenance/equipements" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTEquipementsList /></RoleRoute>} />
+        <Route path="/maintenance/equipements/nouveau" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTEquipementForm /></RoleRoute>} />
+        <Route path="/maintenance/equipements/:id" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTEquipementDetail /></RoleRoute>} />
+        <Route path="/maintenance/equipements/:id/modifier" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTEquipementForm /></RoleRoute>} />
+        <Route path="/maintenance/affectations" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTAffectationsList /></RoleRoute>} />
+        <Route path="/maintenance/affectations/nouveau" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTAffectationForm /></RoleRoute>} />
+        <Route path="/maintenance/affectations/:id/modifier" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTAffectationForm /></RoleRoute>} />
+        <Route path="/maintenance/interventions" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTMaintenancesList /></RoleRoute>} />
+        <Route path="/maintenance/interventions/nouveau" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTMaintenanceForm /></RoleRoute>} />
+        <Route path="/maintenance/interventions/:id/modifier" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTMaintenanceForm /></RoleRoute>} />
+        <Route path="/maintenance/demandes" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTDemandesList /></RoleRoute>} />
+        <Route path="/maintenance/demandes/nouveau" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTDemandeForm /></RoleRoute>} />
+        <Route path="/maintenance/demandes/:id" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTDemandeDetail /></RoleRoute>} />
+        <Route path="/maintenance/demandes/:id/modifier" element={<RoleRoute allowedRoles={["RESPONSABLE_MAINTENANCE"]}><MTDemandeForm /></RoleRoute>} />
         {/* ==================================================
 
             RESPONSABLE RH
 
         ================================================== */}
+        <Route
+  path="/rh/dashboard"
+  element={
+    <RoleRoute allowedRoles={["RESPONSABLE_RH"]}>
+      <RHDashboard />
+    </RoleRoute>
+  }
+/>
 
         <Route
-
-          path="/rh/dashboard"
-
-          element={
-
-            <RoleRoute allowedRoles={["RESPONSABLE_RH"]}>
-
-              <PlaceholderPage />
-
-            </RoleRoute>
-
-          }
-
-        />
+  path="/rh/employes"
+  element={
+    <RoleRoute allowedRoles={["RESPONSABLE_RH"]}>
+      <RHEmployesList />
+    </RoleRoute>
+  }
+/>
 
         <Route
-
-          path="/rh/employes"
-
-          element={
-
-            <RoleRoute allowedRoles={["RESPONSABLE_RH"]}>
-
-              <PlaceholderPage />
-
-            </RoleRoute>
-
-          }
-
-        />
+  path="/rh/employes/nouveau"
+  element={
+    <RoleRoute allowedRoles={["RESPONSABLE_RH"]}>
+      <RHEmployeForm />
+    </RoleRoute>
+  }
+/>
 
         <Route
-
-          path="/rh/contrats"
-
-          element={
-
-            <RoleRoute allowedRoles={["RESPONSABLE_RH"]}>
-
-              <PlaceholderPage />
-
-            </RoleRoute>
-
-          }
-
-        />
+  path="/rh/employes/:id"
+  element={
+    <RoleRoute allowedRoles={["RESPONSABLE_RH"]}>
+      <RHEmployeDetail />
+    </RoleRoute>
+  }
+/>
 
         <Route
+  path="/rh/employes/:id/modifier"
+  element={
+    <RoleRoute allowedRoles={["RESPONSABLE_RH"]}>
+      <RHEmployeForm />
+    </RoleRoute>
+  }
+/>
 
-          path="/rh/conges"
+        <Route path="/rh/contrats" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHContratsList /></RoleRoute>} />
+        <Route path="/rh/contrats/nouveau" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHContratForm /></RoleRoute>} />
+        <Route path="/rh/contrats/:id" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHContratDetail /></RoleRoute>} />
+        <Route path="/rh/contrats/:id/modifier" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHContratForm /></RoleRoute>} />
 
-          element={
+        <Route path="/rh/conges" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHCongesList /></RoleRoute>} />
+        <Route path="/rh/conges/nouveau" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHCongeForm /></RoleRoute>} />
+        <Route path="/rh/conges/:id" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHCongeDetail /></RoleRoute>} />
+        <Route path="/rh/conges/:id/modifier" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHCongeForm /></RoleRoute>} />
 
-            <RoleRoute allowedRoles={["RESPONSABLE_RH"]}>
+        <Route path="/rh/pointages" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHPointagesList /></RoleRoute>} />
+        <Route path="/rh/pointages/nouveau" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHPointageForm /></RoleRoute>} />
+        <Route path="/rh/pointages/:id" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHPointageDetail /></RoleRoute>} />
+        <Route path="/rh/pointages/:id/modifier" element={<RoleRoute allowedRoles={["RESPONSABLE_RH"]}><RHPointageForm /></RoleRoute>} />
+    
 
-              <PlaceholderPage />
-
-            </RoleRoute>
-
-          }
-
-        />
-
-        <Route
-
-          path="/rh/pointages"
-
-          element={
-
-            <RoleRoute allowedRoles={["RESPONSABLE_RH"]}>
-
-              <PlaceholderPage />
-
-            </RoleRoute>
-
-          }
-
-        />
+      
 
       </Route>
 
@@ -1649,7 +1580,7 @@ function AppRoutes() {
 
       <Route
 
-        path="\*"
+        path="*"
 
         element={<RoleRedirect />}
 
